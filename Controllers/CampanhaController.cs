@@ -48,8 +48,8 @@ namespace ComuniQBD.Controllers
         // GET: Campanha/Create
         public IActionResult Create()
         {
-            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeId", "CidadeId");
-            ViewData["TipoCampanhaId"] = new SelectList(_context.TipoCampanha, "TipoCampanhaId", "TipoCampanhaId");
+            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeNome", "CidadeNome");
+            ViewData["TipoCampanhaId"] = new SelectList(_context.TipoCampanha, "TipoCampanhaNome", "TipoCampanhaNome");
             return View();
         }
 
@@ -66,8 +66,8 @@ namespace ComuniQBD.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeId", "CidadeId", campanha.CidadeId);
-            ViewData["TipoCampanhaId"] = new SelectList(_context.TipoCampanha, "TipoCampanhaId", "TipoCampanhaId", campanha.TipoCampanhaId);
+            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeNome", "CidadeNome", campanha.CidadeId);
+            ViewData["TipoCampanhaId"] = new SelectList(_context.TipoCampanha, "TipoCampanhaNome", "TipoCampanhaNome", campanha.TipoCampanhaId);
             return View(campanha);
         }
 
@@ -84,8 +84,8 @@ namespace ComuniQBD.Controllers
             {
                 return NotFound();
             }
-            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeId", "CidadeId", campanha.CidadeId);
-            ViewData["TipoCampanhaId"] = new SelectList(_context.TipoCampanha, "TipoCampanhaId", "TipoCampanhaId", campanha.TipoCampanhaId);
+            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeNome", "CidadeNome", campanha.CidadeId);
+            ViewData["TipoCampanhaId"] = new SelectList(_context.TipoCampanha, "TipoCampanhaNome", "TipoCampanhaNome", campanha.TipoCampanhaId);
             return View(campanha);
         }
 
@@ -121,8 +121,8 @@ namespace ComuniQBD.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeId", "CidadeId", campanha.CidadeId);
-            ViewData["TipoCampanhaId"] = new SelectList(_context.TipoCampanha, "TipoCampanhaId", "TipoCampanhaId", campanha.TipoCampanhaId);
+            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeNome", "CidadeNome", campanha.CidadeId);
+            ViewData["TipoCampanhaId"] = new SelectList(_context.TipoCampanha, "TipoCampanhaNome", "TipoCampanhaNome", campanha.TipoCampanhaId);
             return View(campanha);
         }
 
