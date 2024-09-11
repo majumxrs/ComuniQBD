@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ComuniQBD.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20240911141130_Criacao-ComuniQ")]
+    [Migration("20240911144310_Criacao-ComuniQ")]
     partial class CriacaoComuniQ
     {
         /// <inheritdoc />
@@ -269,8 +269,9 @@ namespace ComuniQBD.Migrations
                         .HasColumnType("int")
                         .HasColumnName("UsuarioCEP");
 
-                    b.Property<int>("UsuarioCPF")
-                        .HasColumnType("int")
+                    b.Property<string>("UsuarioCPF")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("UsuarioCPF");
 
                     b.Property<string>("UsuarioCidade")

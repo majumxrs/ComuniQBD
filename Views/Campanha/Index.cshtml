@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ComuniQBD.Models.Campanha>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CampanhaTitulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CampanhaMidia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CampanhaDescricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoCampanha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cidade)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CampanhaTitulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CampanhaMidia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CampanhaDescricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoCampanha.TipoCampanhaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cidade.CidadeId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CampanhaId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CampanhaId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CampanhaId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -266,8 +266,9 @@ namespace ComuniQBD.Migrations
                         .HasColumnType("int")
                         .HasColumnName("UsuarioCEP");
 
-                    b.Property<int>("UsuarioCPF")
-                        .HasColumnType("int")
+                    b.Property<string>("UsuarioCPF")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("UsuarioCPF");
 
                     b.Property<string>("UsuarioCidade")

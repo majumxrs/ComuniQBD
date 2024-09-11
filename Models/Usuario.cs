@@ -32,7 +32,7 @@ namespace ComuniQBD.Models
 
         [Column("UsuarioCPF")]
         [Display(Name = "CPF")]
-        public int UsuarioCPF { get; set; }
+        public string UsuarioCPF { get; set; } = string.Empty;
 
         [Column("UsuarioCEP")]
         [Display(Name = "CEP")]
@@ -51,7 +51,7 @@ namespace ComuniQBD.Models
         public string UsuarioEstado { get; set; } = string.Empty;
 
         [Column("UsuarioSenha")]
-        [Display(Name = "Cidade")]
+        [Display(Name = "Senha")]
         public string UsuarioSenha { get; set; } = string.Empty;
 
         

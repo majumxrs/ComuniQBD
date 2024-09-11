@@ -28,7 +28,7 @@ namespace ComuniQBD.Models
         public TipoDenuncia? TipoDenuncia { get; set; }
 
         [ForeignKey("BairroId")]
-        [Display(Name = "Tipo da Denuncia")]
+        [Display(Name = "Bairro")]
         public int BairroId { get; set; }
         public Bairro? Bairro { get; set; }
     }

@@ -29,7 +29,7 @@ namespace ComuniQBD.Models
         public string PublicacaoMidia { get; set; } = string.Empty;
 
         [Column("PublicacaoDescricao")]
-        [Display(Name = "Descrição da piplicação")]
+        [Display(Name = "Descrição da puplicação")]
         public string PublicacaoDescricao { get; set; } = string.Empty;
 
     }
