@@ -48,8 +48,8 @@ namespace ComuniQBD.Controllers
         // GET: Denuncia/Create
         public IActionResult Create()
         {
-            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroId");
-            ViewData["TipoDenunciaId"] = new SelectList(_context.TipoDenuncia, "TipoDenunciaId", "TipoDenunciaId");
+            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome");
+            ViewData["TipoDenunciaId"] = new SelectList(_context.TipoDenuncia, "TipoDenunciaId", "TipoDenunciaNome");
             return View();
         }
 
@@ -66,8 +66,8 @@ namespace ComuniQBD.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroId", denuncia.BairroId);
-            ViewData["TipoDenunciaId"] = new SelectList(_context.TipoDenuncia, "TipoDenunciaId", "TipoDenunciaId", denuncia.TipoDenunciaId);
+            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome", denuncia.BairroId);
+            ViewData["TipoDenunciaId"] = new SelectList(_context.TipoDenuncia, "TipoDenunciaId", "TipoDenunciaNome", denuncia.TipoDenunciaId);
             return View(denuncia);
         }
 
@@ -84,8 +84,8 @@ namespace ComuniQBD.Controllers
             {
                 return NotFound();
             }
-            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroId", denuncia.BairroId);
-            ViewData["TipoDenunciaId"] = new SelectList(_context.TipoDenuncia, "TipoDenunciaId", "TipoDenunciaId", denuncia.TipoDenunciaId);
+            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome", denuncia.BairroId);
+            ViewData["TipoDenunciaId"] = new SelectList(_context.TipoDenuncia, "TipoDenunciaId", "TipoDenunciaNome", denuncia.TipoDenunciaId);
             return View(denuncia);
         }
 
@@ -121,8 +121,8 @@ namespace ComuniQBD.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroId", denuncia.BairroId);
-            ViewData["TipoDenunciaId"] = new SelectList(_context.TipoDenuncia, "TipoDenunciaId", "TipoDenunciaId", denuncia.TipoDenunciaId);
+            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome", denuncia.BairroId);
+            ViewData["TipoDenunciaId"] = new SelectList(_context.TipoDenuncia, "TipoDenunciaId", "TipoDenunciaNome", denuncia.TipoDenunciaId);
             return View(denuncia);
         }
 

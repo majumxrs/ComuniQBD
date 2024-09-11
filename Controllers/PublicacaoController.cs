@@ -48,8 +48,8 @@ namespace ComuniQBD.Controllers
         // GET: Publicacao/Create
         public IActionResult Create()
         {
-            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroId");
-            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioId");
+            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome");
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome");
             return View();
         }
 
@@ -66,8 +66,8 @@ namespace ComuniQBD.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroId", publicacao.BairroId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioId", publicacao.UsuarioId);
+            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome", publicacao.BairroId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome ", publicacao.UsuarioId);
             return View(publicacao);
         }
 
@@ -84,8 +84,8 @@ namespace ComuniQBD.Controllers
             {
                 return NotFound();
             }
-            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroId", publicacao.BairroId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioId", publicacao.UsuarioId);
+            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome", publicacao.BairroId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome", publicacao.UsuarioId);
             return View(publicacao);
         }
 
@@ -121,8 +121,8 @@ namespace ComuniQBD.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroId", publicacao.BairroId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioId", publicacao.UsuarioId);
+            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome", publicacao.BairroId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome", publicacao.UsuarioId);
             return View(publicacao);
         }
 
