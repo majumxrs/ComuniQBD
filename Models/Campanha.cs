@@ -27,9 +27,9 @@ namespace ComuniQBD.Models
         public int TipoCampanhaId { get; set; }
         public TipoCampanha? TipoCampanha { get; set; }
 
-        /*[ForeignKey("CidadeId")]
+        [ForeignKey("CidadeId")]
         [Display(Name = "Cidade")]
         public int CidadeId { get; set; }
-        public Cidade? Cidade { get; set; }*/
+        public Cidade? Cidade { get; set; }
     }
 }
