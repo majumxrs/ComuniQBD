@@ -14,10 +14,10 @@ namespace ComuniQBD.Models
         [Display(Name = "Titulo da Puplicação")]
         public string PublicacaoTitulo { get; set; } = string.Empty;
 
-        /* [ForeignKey("UsuarioId")]
+         [ForeignKey("UsuarioId")]
          [Display(Name = "Usuario")]
          public int UsuarioId { get; set; }
-         public Usuario? Usuario { get; set; }*///comentada para não dar erro futuramente;
+         public Usuario? Usuario { get; set; }
 
          [ForeignKey("BairroId")]
          [Display(Name = "Bairro")]

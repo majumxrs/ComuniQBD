@@ -22,10 +22,10 @@ namespace ComuniQBD.Models
         [Display(Name = "Descrição da denuncia")]
         public string DenunciaDescricao { get; set; } = string.Empty;
 
-        /*[ForeignKey("TipoDenunciaId")]
+        [ForeignKey("TipoDenunciaId")]
         [Display(Name = "Tipo da Denuncia")]
         public int TipoDenunciaId { get; set; }
-        public TipoDenuncia? TipoDenuncia { get; set; }*/
+        public TipoDenuncia? TipoDenuncia { get; set; }
 
         [ForeignKey("BairroId")]
         [Display(Name = "Tipo da Denuncia")]
