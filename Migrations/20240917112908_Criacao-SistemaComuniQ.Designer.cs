@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ComuniQBD.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20240911144310_Criacao-ComuniQ")]
-    partial class CriacaoComuniQ
+    [Migration("20240917112908_Criacao-SistemaComuniQ")]
+    partial class CriacaoSistemaComuniQ
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -109,6 +109,30 @@ namespace ComuniQBD.Migrations
                     b.HasKey("CidadeId");
 
                     b.ToTable("Cidade");
+                });
+
+            modelBuilder.Entity("ComuniQBD.Models.Comentario", b =>
+                {
+                    b.Property<int>("ComentarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("ComentarioId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ComentarioId"));
+
+                    b.Property<string>("ComentarioTexto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ComentarioTexto");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ComentarioId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Comentario");
                 });
 
             modelBuilder.Entity("ComuniQBD.Models.Denuncia", b =>
@@ -349,6 +373,17 @@ namespace ComuniQBD.Migrations
                     b.Navigation("Cidade");
 
                     b.Navigation("TipoCampanha");
+                });
+
+            modelBuilder.Entity("ComuniQBD.Models.Comentario", b =>
+                {
+                    b.HasOne("ComuniQBD.Models.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("ComuniQBD.Models.Denuncia", b =>

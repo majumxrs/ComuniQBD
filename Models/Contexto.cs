@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ComuniQBD.Models;
 
 namespace ComuniQBD.Models
 {
@@ -17,5 +18,7 @@ namespace ComuniQBD.Models
         public DbSet<TipoCampanha> TipoCampanha { get; set; }
         public DbSet<Bairro> Bairro { get; set; }
         public DbSet<Publicacao> Publicacao { get; set; }
+        public DbSet<Comentario> Comentario { get; set; }
+        //public DbSet<ComuniQBD.Models.Comentario> Comentario { get; set; } = default!;
     }
 }

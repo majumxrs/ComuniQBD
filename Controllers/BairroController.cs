@@ -48,8 +48,8 @@ namespace ComuniQBD.Controllers
         // GET: Bairro/Create
         public IActionResult Create()
         {
-            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeNome", "CidadeNome");
-            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoNome", "EstadoNome");
+            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeId", "CidadeNome");
+            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNome");
             return View();
         }
 
@@ -66,8 +66,8 @@ namespace ComuniQBD.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeNome", "CidadeNome", bairro.CidadeId);
-            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoNome", "EstadoNome", bairro.EstadoId);
+            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeId", "CidadeNome", bairro.CidadeId);
+            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNome", bairro.EstadoId);
             return View(bairro);
         }
 
@@ -84,8 +84,8 @@ namespace ComuniQBD.Controllers
             {
                 return NotFound();
             }
-            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeNome", "CidadeNome", bairro.CidadeId);
-            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoNome", "EstadoNome", bairro.EstadoId);
+            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeId", "CidadeNome", bairro.CidadeId);
+            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNome", bairro.EstadoId);
             return View(bairro);
         }
 
@@ -121,8 +121,8 @@ namespace ComuniQBD.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeNome", "CidadeNome", bairro.CidadeId);
-            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoNome", "EstadoNome", bairro.EstadoId);
+            ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeId", "CidadeNome", bairro.CidadeId);
+            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNome", bairro.EstadoId);
             return View(bairro);
         }
 

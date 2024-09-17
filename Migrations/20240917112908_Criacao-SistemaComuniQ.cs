@@ -5,7 +5,7 @@
 namespace ComuniQBD.Migrations
 {
     /// <inheritdoc />
-    public partial class CriacaoComuniQ : Migration
+    public partial class CriacaoSistemaComuniQ : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -142,6 +142,26 @@ namespace ComuniQBD.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Comentario",
+                columns: table => new
+                {
+                    ComentarioId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ComentarioTexto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comentario", x => x.ComentarioId);
+                    table.ForeignKey(
+                        name: "FK_Comentario_Usuario_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "Usuario",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Denuncia",
                 columns: table => new
                 {
@@ -220,6 +240,11 @@ namespace ComuniQBD.Migrations
                 column: "TipoCampanhaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comentario_UsuarioId",
+                table: "Comentario",
+                column: "UsuarioId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Denuncia_BairroId",
                 table: "Denuncia",
                 column: "BairroId");
@@ -245,6 +270,9 @@ namespace ComuniQBD.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Campanha");
+
+            migrationBuilder.DropTable(
+                name: "Comentario");
 
             migrationBuilder.DropTable(
                 name: "Denuncia");
