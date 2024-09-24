@@ -3,16 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ComuniQBD.Models
 {
-    [Table("Comentario")]
-    public class Comentario
+    [Table("PublicacaoUsuario")]
+    public class PublicacaoUsuario
     {
-        [Column("ComentarioId")]
-        [Display(Name = "código do Comentario")]
-        public int ComentarioId { get; set; }
-
-        [Column("ComentarioTexto")]
-        [Display(Name = "Incira seu comentario")]
-        public string ComentarioTexto { get; set; } = string.Empty;
+        [Column("PublicacaoUsuarioId")]
+        public int PublicacaoUsuarioId { get; set; }
 
         [ForeignKey("UsuarioId")]
         [Display(Name = "Usuario")]

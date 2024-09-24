@@ -21,7 +21,7 @@ namespace ComuniQBD.Controllers
         // GET: Comentario
         public async Task<IActionResult> Index()
         {
-            var contexto = _context.Comentario.Include(c => c.Usuario);
+            var contexto = _context.Comentario.Include(c => c.Publicacao).Include(c => c.Usuario);
             return View(await contexto.ToListAsync());
         }
 
@@ -34,6 +34,7 @@ namespace ComuniQBD.Controllers
             }
 
             var comentario = await _context.Comentario
+                .Include(c => c.Publicacao)
                 .Include(c => c.Usuario)
                 .FirstOrDefaultAsync(m => m.ComentarioId == id);
             if (comentario == null)
@@ -47,6 +48,7 @@ namespace ComuniQBD.Controllers
         // GET: Comentario/Create
         public IActionResult Create()
         {
+            ViewData["PublicacaoId"] = new SelectList(_context.Publicacao, "PublicacaoId", "PublicacaoTitulo");
             ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome");
             return View();
         }
@@ -56,7 +58,7 @@ namespace ComuniQBD.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ComentarioId,ComentarioTexto,UsuarioId")] Comentario comentario)
+        public async Task<IActionResult> Create([Bind("ComentarioId,ComentarioTexto,UsuarioId,PublicacaoId")] Comentario comentario)
         {
             if (ModelState.IsValid)
             {
@@ -64,6 +66,7 @@ namespace ComuniQBD.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["PublicacaoId"] = new SelectList(_context.Publicacao, "PublicacaoId", "PublicacaoTitulo", comentario.PublicacaoId);
             ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome", comentario.UsuarioId);
             return View(comentario);
         }
@@ -81,6 +84,7 @@ namespace ComuniQBD.Controllers
             {
                 return NotFound();
             }
+            ViewData["PublicacaoId"] = new SelectList(_context.Publicacao, "PublicacaoId", "PublicacaoTitulo", comentario.PublicacaoId);
             ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome", comentario.UsuarioId);
             return View(comentario);
         }
@@ -90,7 +94,7 @@ namespace ComuniQBD.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ComentarioId,ComentarioTexto,UsuarioId")] Comentario comentario)
+        public async Task<IActionResult> Edit(int id, [Bind("ComentarioId,ComentarioTexto,UsuarioId,PublicacaoId")] Comentario comentario)
         {
             if (id != comentario.ComentarioId)
             {
@@ -117,6 +121,7 @@ namespace ComuniQBD.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["PublicacaoId"] = new SelectList(_context.Publicacao, "PublicacaoId", "PublicacaoTitulo", comentario.PublicacaoId);
             ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome", comentario.UsuarioId);
             return View(comentario);
         }
@@ -130,6 +135,7 @@ namespace ComuniQBD.Controllers
             }
 
             var comentario = await _context.Comentario
+                .Include(c => c.Publicacao)
                 .Include(c => c.Usuario)
                 .FirstOrDefaultAsync(m => m.ComentarioId == id);
             if (comentario == null)

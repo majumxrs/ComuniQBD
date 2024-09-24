@@ -19,6 +19,8 @@ namespace ComuniQBD.Models
         public DbSet<Bairro> Bairro { get; set; }
         public DbSet<Publicacao> Publicacao { get; set; }
         public DbSet<Comentario> Comentario { get; set; }
+        public DbSet<TipoPerfil> TipoPerfil { get; set; }
+        public DbSet<PublicacaoUsuario> PublicacaoUsuario { get; set; }
         //public DbSet<ComuniQBD.Models.Comentario> Comentario { get; set; } = default!;
     }
 }

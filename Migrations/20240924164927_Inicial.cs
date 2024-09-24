@@ -5,7 +5,7 @@
 namespace ComuniQBD.Migrations
 {
     /// <inheritdoc />
-    public partial class CriacaoSistemaComuniQ : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,6 +60,19 @@ namespace ComuniQBD.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TipoDenuncia", x => x.TipoDenunciaId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TipoPerfil",
+                columns: table => new
+                {
+                    TipoPerfilId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TipoPerfilNome = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TipoPerfil", x => x.TipoPerfilId);
                 });
 
             migrationBuilder.CreateTable(
@@ -142,26 +155,6 @@ namespace ComuniQBD.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comentario",
-                columns: table => new
-                {
-                    ComentarioId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ComentarioTexto = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsuarioId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comentario", x => x.ComentarioId);
-                    table.ForeignKey(
-                        name: "FK_Comentario_Usuario_UsuarioId",
-                        column: x => x.UsuarioId,
-                        principalTable: "Usuario",
-                        principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Denuncia",
                 columns: table => new
                 {
@@ -197,7 +190,6 @@ namespace ComuniQBD.Migrations
                     PublicacaoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PublicacaoTitulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsuarioId = table.Column<int>(type: "int", nullable: false),
                     BairroId = table.Column<int>(type: "int", nullable: false),
                     PublicacaoMidia = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PublicacaoDescricao = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -211,8 +203,55 @@ namespace ComuniQBD.Migrations
                         principalTable: "Bairro",
                         principalColumn: "BairroId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comentario",
+                columns: table => new
+                {
+                    ComentarioId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ComentarioTexto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false),
+                    PublicacaoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comentario", x => x.ComentarioId);
                     table.ForeignKey(
-                        name: "FK_Publicacao_Usuario_UsuarioId",
+                        name: "FK_Comentario_Publicacao_PublicacaoId",
+                        column: x => x.PublicacaoId,
+                        principalTable: "Publicacao",
+                        principalColumn: "PublicacaoId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comentario_Usuario_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "Usuario",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PublicacaoUsuario",
+                columns: table => new
+                {
+                    PublicacaoUsuarioId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false),
+                    PublicacaoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PublicacaoUsuario", x => x.PublicacaoUsuarioId);
+                    table.ForeignKey(
+                        name: "FK_PublicacaoUsuario_Publicacao_PublicacaoId",
+                        column: x => x.PublicacaoId,
+                        principalTable: "Publicacao",
+                        principalColumn: "PublicacaoId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PublicacaoUsuario_Usuario_UsuarioId",
                         column: x => x.UsuarioId,
                         principalTable: "Usuario",
                         principalColumn: "UsuarioId",
@@ -240,6 +279,11 @@ namespace ComuniQBD.Migrations
                 column: "TipoCampanhaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comentario_PublicacaoId",
+                table: "Comentario",
+                column: "PublicacaoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comentario_UsuarioId",
                 table: "Comentario",
                 column: "UsuarioId");
@@ -260,8 +304,13 @@ namespace ComuniQBD.Migrations
                 column: "BairroId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Publicacao_UsuarioId",
-                table: "Publicacao",
+                name: "IX_PublicacaoUsuario_PublicacaoId",
+                table: "PublicacaoUsuario",
+                column: "PublicacaoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PublicacaoUsuario_UsuarioId",
+                table: "PublicacaoUsuario",
                 column: "UsuarioId");
         }
 
@@ -278,7 +327,10 @@ namespace ComuniQBD.Migrations
                 name: "Denuncia");
 
             migrationBuilder.DropTable(
-                name: "Publicacao");
+                name: "PublicacaoUsuario");
+
+            migrationBuilder.DropTable(
+                name: "TipoPerfil");
 
             migrationBuilder.DropTable(
                 name: "TipoCampanha");
@@ -287,10 +339,13 @@ namespace ComuniQBD.Migrations
                 name: "TipoDenuncia");
 
             migrationBuilder.DropTable(
-                name: "Bairro");
+                name: "Publicacao");
 
             migrationBuilder.DropTable(
                 name: "Usuario");
+
+            migrationBuilder.DropTable(
+                name: "Bairro");
 
             migrationBuilder.DropTable(
                 name: "Cidade");

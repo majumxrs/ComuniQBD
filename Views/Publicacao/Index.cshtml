@@ -4,19 +4,16 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Publicação</h1>
+<h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Criar novo</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.PublicacaoTitulo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Usuario)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Bairro)
@@ -37,10 +34,7 @@
                 @Html.DisplayFor(modelItem => item.PublicacaoTitulo)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Usuario.UsuarioNome)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Bairro.BairroNome)
+                @Html.DisplayFor(modelItem => item.Bairro.BairroId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PublicacaoMidia)
@@ -49,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.PublicacaoDescricao)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.PublicacaoId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.PublicacaoId">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.PublicacaoId">Excluir</a>
+                <a asp-action="Edit" asp-route-id="@item.PublicacaoId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PublicacaoId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PublicacaoId">Delete</a>
             </td>
         </tr>
 }
