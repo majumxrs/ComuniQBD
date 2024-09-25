@@ -47,7 +47,7 @@ namespace ComuniQBD.Controllers
         // GET: Publicacao/Create
         public IActionResult Create()
         {
-            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroId");
+            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome");
             return View();
         }
 
@@ -73,7 +73,7 @@ namespace ComuniQBD.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroId", publicacao.BairroId);
+            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome", publicacao.BairroId);
             return View(publicacao);
         }
 
@@ -90,7 +90,7 @@ namespace ComuniQBD.Controllers
             {
                 return NotFound();
             }
-            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroId", publicacao.BairroId);
+            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome", publicacao.BairroId);
             return View(publicacao);
         }
 
@@ -126,7 +126,7 @@ namespace ComuniQBD.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroId", publicacao.BairroId);
+            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome", publicacao.BairroId);
             return View(publicacao);
         }
 

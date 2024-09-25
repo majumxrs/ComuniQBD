@@ -11,7 +11,7 @@ namespace ComuniQBD.Models
         public int TipoDenunciaId { get; set; }
 
         [Column("TipoDenunciaNome")]
-        [Display(Name = "Tipo de Denuncia")]
+        [Display(Name = "Tipo de Denúncia")]
         public string TipoDenunciaNome { get; set; } = string.Empty;
     }
 }

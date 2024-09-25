@@ -11,7 +11,7 @@ namespace ComuniQBD.Models
         public int CidadeId { get; set; }
 
         [Column("CidadeNome")]
-        [Display(Name = "Nome do Nome")]
+        [Display(Name = "Nome da Cidade")]
         public string CidadeNome { get; set; } = string.Empty;
 
     }

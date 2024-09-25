@@ -11,16 +11,16 @@ namespace ComuniQBD.Models
         public int ComentarioId { get; set; }
 
         [Column("ComentarioTexto")]
-        [Display(Name = "Incira seu comentario")]
+        [Display(Name = "Insira seu comentário")]
         public string ComentarioTexto { get; set; } = string.Empty;
 
         [ForeignKey("UsuarioId")]
-        [Display(Name = "Usuario")]
+        [Display(Name = "Usuário")]
         public int UsuarioId { get; set; }
         public Usuario? Usuario { get; set; }
 
         [ForeignKey("PublicacaoId")]
-        [Display(Name = "Publicacao")]
+        [Display(Name = "Publicação")]
         public int PublicacaoId { get; set; }
         public Publicacao? Publicacao { get; set; }
     }

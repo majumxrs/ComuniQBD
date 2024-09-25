@@ -11,19 +11,19 @@ namespace ComuniQBD.Models
         public int DenunciaId { get; set; }
 
         [Column("DenunciaTitulo")]
-        [Display(Name = "Tipo da Denuncia")]
+        [Display(Name = "Tipo da Denúncia")]
         public string DenunciaTitulo { get; set; } = string.Empty;
 
         [Column("DenunciaMidia")]
-        [Display(Name = "Foto da Denuncia")]
+        [Display(Name = "Foto da Denúncia")]
         public string DenunciaMidia { get; set; } = string.Empty;
 
         [Column("DenunciaDescricao")]
-        [Display(Name = "Descrição da denuncia")]
+        [Display(Name = "Descrição da denúncia")]
         public string DenunciaDescricao { get; set; } = string.Empty;
 
         [ForeignKey("TipoDenunciaId")]
-        [Display(Name = "Tipo da Denuncia")]
+        [Display(Name = "Tipo da Denúncia")]
         public int TipoDenunciaId { get; set; }
         public TipoDenuncia? TipoDenuncia { get; set; }
 

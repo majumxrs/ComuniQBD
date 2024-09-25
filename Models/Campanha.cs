@@ -15,7 +15,7 @@ namespace ComuniQBD.Models
         public string CampanhaTitulo { get; set; } = string.Empty;
 
         [Column("CampanhaMidia")]
-        [Display(Name = "Midia da campanha")]
+        [Display(Name = "Mídia da campanha")]
         public string CampanhaMidia { get; set; } = string.Empty;
 
         [Column("CampanhaDescricao")]

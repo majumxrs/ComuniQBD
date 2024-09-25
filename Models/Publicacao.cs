@@ -7,11 +7,11 @@ namespace ComuniQBD.Models
     public class Publicacao
     {
         [Column("PublicacaoId")]
-        [Display(Name = "código da puplicaõ")]
+        [Display(Name = "código da publicaõ")]
         public int PublicacaoId { get; set; }
 
         [Column("PublicacaoTitulo")]
-        [Display(Name = "Titulo da Puplicação")]
+        [Display(Name = "Titulo da Publicação")]
         public string PublicacaoTitulo { get; set; } = string.Empty;
 
          [ForeignKey("BairroId")]
@@ -20,11 +20,11 @@ namespace ComuniQBD.Models
          public Bairro? Bairro { get; set; }
 
         [Column("PublicacaoMidia")]
-        [Display(Name = "Imagem do Ocorrido!")]
+        [Display(Name = "Imagem do Ocorrido")]
         public string PublicacaoMidia { get; set; } = string.Empty;
 
         [Column("PublicacaoDescricao")]
-        [Display(Name = "Descrição da puplicação")]
+        [Display(Name = "Descrição da publicação")]
         public string PublicacaoDescricao { get; set; } = string.Empty;
 
     }
