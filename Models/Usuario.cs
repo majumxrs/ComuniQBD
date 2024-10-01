@@ -54,6 +54,10 @@ namespace ComuniQBD.Models
         [Display(Name = "Senha")]
         public string UsuarioSenha { get; set; } = string.Empty;
 
-        
+        [Column("UsuarioFoto")]
+        [Display(Name = "Foto do Usuário")]
+        public byte[]? UsuarioFoto { get; set; }
+
+
     }
 }

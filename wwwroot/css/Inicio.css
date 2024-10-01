@@ -1,0 +1,13 @@
+﻿.bg {
+    background-color: #20343F
+}
+.imgLogo{
+    width: 120px;
+    height: 80px;
+    object-fit: contain
+}
+.espaco{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around
+}

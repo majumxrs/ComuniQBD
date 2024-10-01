@@ -64,9 +64,8 @@ namespace ComuniQBD.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("CampanhaDescricao");
 
-                    b.Property<string>("CampanhaMidia")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<byte[]>("CampanhaMidia")
+                        .HasColumnType("varbinary(max)")
                         .HasColumnName("CampanhaMidia");
 
                     b.Property<string>("CampanhaTitulo")
@@ -154,9 +153,8 @@ namespace ComuniQBD.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("DenunciaDescricao");
 
-                    b.Property<string>("DenunciaMidia")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<byte[]>("DenunciaMidia")
+                        .HasColumnType("varbinary(max)")
                         .HasColumnName("DenunciaMidia");
 
                     b.Property<string>("DenunciaTitulo")
@@ -212,9 +210,8 @@ namespace ComuniQBD.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("PublicacaoDescricao");
 
-                    b.Property<string>("PublicacaoMidia")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<byte[]>("PublicacaoMidia")
+                        .HasColumnType("varbinary(max)")
                         .HasColumnName("PublicacaoMidia");
 
                     b.Property<string>("PublicacaoTitulo")
@@ -352,6 +349,10 @@ namespace ComuniQBD.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("UsuarioEstado");
+
+                    b.Property<byte[]>("UsuarioFoto")
+                        .HasColumnType("varbinary(max)")
+                        .HasColumnName("UsuarioFoto");
 
                     b.Property<string>("UsuarioNome")
                         .IsRequired()
