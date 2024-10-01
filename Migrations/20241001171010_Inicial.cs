@@ -91,7 +91,8 @@ namespace ComuniQBD.Migrations
                     UsuarioCidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UssuarioBairro = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UsuarioEstado = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsuarioSenha = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    UsuarioSenha = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioFoto = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -132,7 +133,7 @@ namespace ComuniQBD.Migrations
                     CampanhaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CampanhaTitulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CampanhaMidia = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CampanhaMidia = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     CampanhaDescricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TipoCampanhaId = table.Column<int>(type: "int", nullable: false),
                     CidadeId = table.Column<int>(type: "int", nullable: false)
@@ -161,7 +162,7 @@ namespace ComuniQBD.Migrations
                     DenunciaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DenunciaTitulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DenunciaMidia = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DenunciaMidia = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     DenunciaDescricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TipoDenunciaId = table.Column<int>(type: "int", nullable: false),
                     BairroId = table.Column<int>(type: "int", nullable: false)
@@ -191,7 +192,7 @@ namespace ComuniQBD.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PublicacaoTitulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BairroId = table.Column<int>(type: "int", nullable: false),
-                    PublicacaoMidia = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PublicacaoMidia = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     PublicacaoDescricao = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
