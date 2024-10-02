@@ -4,13 +4,14 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Editar</h1>
+<h1>Edit</h1>
 
 <h4>Usuario</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+              @using (Html.BeginForm("Edit", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="UsuarioId" />
             <div class="form-group">
@@ -54,9 +55,9 @@
                 <span asp-validation-for="UsuarioCidade" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UssuarioBairro" class="control-label"></label>
-                <input asp-for="UssuarioBairro" class="form-control" />
-                <span asp-validation-for="UssuarioBairro" class="text-danger"></span>
+                <label asp-for="UsuarioBairro" class="control-label"></label>
+                <input asp-for="UsuarioBairro" class="form-control" />
+                <span asp-validation-for="UsuarioBairro" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="UsuarioEstado" class="control-label"></label>
@@ -69,14 +70,24 @@
                 <span asp-validation-for="UsuarioSenha" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Salvar" class="btn btn-primary" />
+                <label asp-for="UsuarioFoto" class="control-label"></label>
+                <input type="file" name="UsuarioFoto" id="UsuarioFoto" onchange="fileCheck(this);" />
+                <span asp-validation-for="UsuarioFoto" class="text-danger"></span>
             </div>
-        </form>
+            <div class="form-group">
+                <label asp-for="TipoPerfilId" class="control-label"></label>
+                <select asp-for="TipoPerfilId" class="form-control" asp-items="ViewBag.TipoPerfilId"></select>
+                <span asp-validation-for="TipoPerfilId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+       }
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Voltar</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

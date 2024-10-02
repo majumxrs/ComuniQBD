@@ -89,7 +89,7 @@ namespace ComuniQBD.Migrations
                     UsuarioCPF = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UsuarioCEP = table.Column<int>(type: "int", nullable: false),
                     UsuarioCidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UssuarioBairro = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioBairro = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UsuarioEstado = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UsuarioSenha = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UsuarioFoto = table.Column<byte[]>(type: "varbinary(max)", nullable: true)

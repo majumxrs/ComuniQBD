@@ -21,9 +21,23 @@ namespace ComuniQBD.Controllers
         // GET: Usuario
         public async Task<IActionResult> Index()
         {
-              return _context.Usuario != null ? 
-                          View(await _context.Usuario.ToListAsync()) :
-                          Problem("Entity set 'Contexto.Usuario'  is null.");
+            var usuarios = _context.Usuario
+                           .Include(g=> g.TipoPerfil);
+            if (usuarios != null)
+            {
+                usuarios.ToListAsync().Wait();
+                foreach (var item in usuarios)
+                {
+                    string imageBase64Data = Convert.ToBase64String(inArray: item.UsuarioFoto);
+                    string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+                    item.ExibicaoImg = imageDataURL;
+                }
+                return View(usuarios);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // GET: Usuario/Details/5
@@ -35,6 +49,7 @@ namespace ComuniQBD.Controllers
             }
 
             var usuario = await _context.Usuario
+                .Include(u => u.TipoPerfil)
                 .FirstOrDefaultAsync(m => m.UsuarioId == id);
             if (usuario == null)
             {
@@ -47,6 +62,7 @@ namespace ComuniQBD.Controllers
         // GET: Usuario/Create
         public IActionResult Create()
         {
+            ViewData["TipoPerfilId"] = new SelectList(_context.TipoPerfil, "TipoPerfilId", "TipoPerfilNome");
             return View();
         }
 
@@ -55,14 +71,26 @@ namespace ComuniQBD.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UsuarioId,UsuarioNome,UsuarioSobrenome,UsuarioApelido,UsuarioEmail,UsuarioTelefone,UsuarioCPF,UsuarioCEP,UsuarioCidade,UssuarioBairro,UsuarioEstado,UsuarioSenha")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("UsuarioId,UsuarioNome,UsuarioSobrenome,UsuarioApelido,UsuarioEmail,UsuarioTelefone,UsuarioCPF,UsuarioCEP,UsuarioCidade,UsuarioBairro,UsuarioEstado,UsuarioSenha,UsuarioFoto,TipoPerfilId")] Usuario usuario)
         {
+            foreach (var file in Request.Form.Files)
+            {
+
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+                usuario.UsuarioFoto = ms.ToArray();
+
+                ms.Close();
+                ms.Dispose();
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["TipoPerfilId"] = new SelectList(_context.TipoPerfil, "TipoPerfilId", "TipoPerfilNome", usuario.TipoPerfilId);
             return View(usuario);
         }
 
@@ -79,6 +107,7 @@ namespace ComuniQBD.Controllers
             {
                 return NotFound();
             }
+            ViewData["TipoPerfilId"] = new SelectList(_context.TipoPerfil, "TipoPerfilId", "TipoPerfilNome", usuario.TipoPerfilId);
             return View(usuario);
         }
 
@@ -87,8 +116,19 @@ namespace ComuniQBD.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UsuarioId,UsuarioNome,UsuarioSobrenome,UsuarioApelido,UsuarioEmail,UsuarioTelefone,UsuarioCPF,UsuarioCEP,UsuarioCidade,UssuarioBairro,UsuarioEstado,UsuarioSenha")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("UsuarioId,UsuarioNome,UsuarioSobrenome,UsuarioApelido,UsuarioEmail,UsuarioTelefone,UsuarioCPF,UsuarioCEP,UsuarioCidade,UsuarioBairro,UsuarioEstado,UsuarioSenha,UsuarioFoto,TipoPerfilId")] Usuario usuario)
         {
+            foreach (var file in Request.Form.Files)
+            {
+
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+                usuario.UsuarioFoto = ms.ToArray();
+
+                ms.Close();
+                ms.Dispose();
+            }
+
             if (id != usuario.UsuarioId)
             {
                 return NotFound();
@@ -114,6 +154,7 @@ namespace ComuniQBD.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["TipoPerfilId"] = new SelectList(_context.TipoPerfil, "TipoPerfilId", "TipoPerfilNome", usuario.TipoPerfilId);
             return View(usuario);
         }
 
@@ -126,6 +167,7 @@ namespace ComuniQBD.Controllers
             }
 
             var usuario = await _context.Usuario
+                .Include(u => u.TipoPerfil)
                 .FirstOrDefaultAsync(m => m.UsuarioId == id);
             if (usuario == null)
             {
