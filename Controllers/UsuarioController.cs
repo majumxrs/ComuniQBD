@@ -28,9 +28,12 @@ namespace ComuniQBD.Controllers
                 usuarios.ToListAsync().Wait();
                 foreach (var item in usuarios)
                 {
-                    string imageBase64Data = Convert.ToBase64String(inArray: item.UsuarioFoto);
-                    string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
-                    item.ExibicaoImg = imageDataURL;
+                    if(item.UsuarioFoto != null)
+                    {
+                        string imageBase64Data = Convert.ToBase64String(inArray: item.UsuarioFoto);
+                        string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+                        item.ExibicaoImg = imageDataURL;
+                    }                   
                 }
                 return View(usuarios);
             }

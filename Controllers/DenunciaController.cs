@@ -27,9 +27,12 @@ namespace ComuniQBD.Controllers
                 denuncias.ToListAsync().Wait();
                 foreach (var item in denuncias)
                 {
-                    string imageBase64Data = Convert.ToBase64String(inArray: item.DenunciaMidia);
-                    string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
-                    item.ExibicaoImg = imageDataURL;
+                    if(item.DenunciaMidia != null)
+                    {
+                        string imageBase64Data = Convert.ToBase64String(inArray: item.DenunciaMidia);
+                        string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+                        item.ExibicaoImg = imageDataURL;
+                    }                    
                 }
                 return View(denuncias);
             }

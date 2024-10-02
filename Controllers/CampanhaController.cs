@@ -27,9 +27,12 @@ namespace ComuniQBD.Controllers
                 campanhas.ToListAsync().Wait();
                 foreach (var item in campanhas)
                 {
-                    string imageBase64Data = Convert.ToBase64String(inArray: item.CampanhaMidia);
-                    string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
-                    item.ExibicaoImg = imageDataURL;
+                    if (item.CampanhaMidia != null)
+                    {
+                        string imageBase64Data = Convert.ToBase64String(inArray: item.CampanhaMidia);
+                        string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+                        item.ExibicaoImg = imageDataURL;
+                    }                    
                 }
                 return View(campanhas);
             }

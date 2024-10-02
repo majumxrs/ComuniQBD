@@ -27,9 +27,12 @@ namespace ComuniQBD.Controllers
                 publicacoes.ToListAsync().Wait();
                 foreach (var item in publicacoes)
                 {
-                    string imageBase64Data = Convert.ToBase64String(inArray: item.PublicacaoMidia);
-                    string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
-                    item.ExibicaoImg = imageDataURL;
+                    if(item.PublicacaoMidia != null)
+                    {
+                        string imageBase64Data = Convert.ToBase64String(inArray: item.PublicacaoMidia);
+                        string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+                        item.ExibicaoImg = imageDataURL;
+                    }                    
                 }
                 return View(publicacoes);
             }
@@ -91,7 +94,7 @@ namespace ComuniQBD.Controllers
 
                 // Criado o objeto PublicacaoUsuario para inserir na tabela auxiliar o id do usuario e da publicação
                 var usuariopubli = new PublicacaoUsuario();
-                usuariopubli.UsuarioId = 2;
+                usuariopubli.UsuarioId = 6;
                 usuariopubli.PublicacaoId = publicacao.PublicacaoId;
                 _context.Add(usuariopubli);
                 await _context.SaveChangesAsync();

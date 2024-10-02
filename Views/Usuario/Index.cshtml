@@ -56,54 +56,54 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioNome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioSobrenome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioApelido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioTelefone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioCPF)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioCEP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioCidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioBairro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioEstado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioSenha)
-            </td>           
-            <td>
-                <img class="imgUsu" src="@Url.Content(item.ExibicaoImg)" />
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoPerfil.TipoPerfilNome)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.UsuarioId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.UsuarioId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.UsuarioId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioNome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioSobrenome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioApelido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioTelefone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioCPF)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioCEP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioCidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioBairro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioEstado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsuarioSenha)
+                </td>
+                <td>
+                    <img class="imgUsu" src="@Url.Content(item.ExibicaoImg)" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoPerfil.TipoPerfilNome)
+                </td>    
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.UsuarioId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.UsuarioId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.UsuarioId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
