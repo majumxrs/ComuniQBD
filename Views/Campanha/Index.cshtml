@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    <link rel="stylesheet" href="~/css/Usuario.css" asp-append-version="true" />
 }
 
 <h1>Campanha</h1>
@@ -36,9 +37,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CampanhaTitulo)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CampanhaMidia)
-            </td>
+                <td>
+                    <img class="imgUsu" src="@Url.Content(item.ExibicaoImg)" />
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CampanhaDescricao)
             </td>

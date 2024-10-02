@@ -11,3 +11,7 @@
     flex-direction: row;
     justify-content: space-around
 }
+.rodape {
+    border-top-color: #20343F;
+    background-color: ##d8d8d873
+}

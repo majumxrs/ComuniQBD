@@ -27,5 +27,8 @@ namespace ComuniQBD.Models
         [Display(Name = "Descrição da publicação")]
         public string PublicacaoDescricao { get; set; } = string.Empty;
 
+        [NotMapped]
+        public string ExibicaoImg { get; set; } = string.Empty;
+
     }
 }

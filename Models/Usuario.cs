@@ -42,9 +42,9 @@ namespace ComuniQBD.Models
         [Display(Name = "Cidade")]
         public string UsuarioCidade { get; set; } = string.Empty;
 
-        [Column("UssuarioBairro")]
+        [Column("UsuarioBairro")]
         [Display(Name = "Bairro")]
-        public string UssuarioBairro { get; set; } = string.Empty;
+        public string UsuarioBairro { get; set; } = string.Empty;
 
         [Column("UsuarioEstado")]
         [Display(Name = "Estado")]
@@ -58,6 +58,11 @@ namespace ComuniQBD.Models
         [Display(Name = "Foto do Usuário")]
         public byte[]? UsuarioFoto { get; set; }
 
+        [ForeignKey("TipoPerfilId")]
+        public int TipoPerfilId { get; set; }
+        public TipoPerfil? TipoPerfil { get; set; }
 
+        [NotMapped]
+        public string ExibicaoImg { get; set; } = string.Empty;
     }
 }

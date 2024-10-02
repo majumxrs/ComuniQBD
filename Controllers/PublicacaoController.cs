@@ -21,8 +21,22 @@ namespace ComuniQBD.Controllers
         // GET: Publicacao
         public async Task<IActionResult> Index()
         {
-            var contexto = _context.Publicacao.Include(p => p.Bairro);
-            return View(await contexto.ToListAsync());
+            var publicacoes = _context.Publicacao.Include(g=> g.Bairro);
+            if (publicacoes != null)
+            {
+                publicacoes.ToListAsync().Wait();
+                foreach (var item in publicacoes)
+                {
+                    string imageBase64Data = Convert.ToBase64String(inArray: item.PublicacaoMidia);
+                    string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+                    item.ExibicaoImg = imageDataURL;
+                }
+                return View(publicacoes);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // GET: Publicacao/Details/5
@@ -58,6 +72,17 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PublicacaoId,PublicacaoTitulo,BairroId,PublicacaoMidia,PublicacaoDescricao")] Publicacao publicacao)
         {
+            foreach (var file in Request.Form.Files)
+            {
+
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+                publicacao.PublicacaoMidia = ms.ToArray();
+
+                ms.Close();
+                ms.Dispose();
+            }
+
             if (ModelState.IsValid)
             {
                 //Adicionando a publicação no banco            
@@ -66,7 +91,7 @@ namespace ComuniQBD.Controllers
 
                 // Criado o objeto PublicacaoUsuario para inserir na tabela auxiliar o id do usuario e da publicação
                 var usuariopubli = new PublicacaoUsuario();
-                usuariopubli.UsuarioId = 1;
+                usuariopubli.UsuarioId = 2;
                 usuariopubli.PublicacaoId = publicacao.PublicacaoId;
                 _context.Add(usuariopubli);
                 await _context.SaveChangesAsync();
@@ -101,6 +126,16 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PublicacaoId,PublicacaoTitulo,BairroId,PublicacaoMidia,PublicacaoDescricao")] Publicacao publicacao)
         {
+            foreach (var file in Request.Form.Files)
+            {
+
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+                publicacao.PublicacaoMidia = ms.ToArray();
+
+                ms.Close();
+                ms.Dispose();
+            }
             if (id != publicacao.PublicacaoId)
             {
                 return NotFound();
