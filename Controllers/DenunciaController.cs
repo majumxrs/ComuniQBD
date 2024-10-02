@@ -21,8 +21,22 @@ namespace ComuniQBD.Controllers
         // GET: Denuncia
         public async Task<IActionResult> Index()
         {
-            var contexto = _context.Denuncia.Include(d => d.Bairro).Include(d => d.TipoDenuncia);
-            return View(await contexto.ToListAsync());
+            var denuncias = _context.Denuncia.Include(g=> g.TipoDenuncia).Include(g=> g.Bairro);
+            if (denuncias != null)
+            {
+                denuncias.ToListAsync().Wait();
+                foreach (var item in denuncias)
+                {
+                    string imageBase64Data = Convert.ToBase64String(inArray: item.DenunciaMidia);
+                    string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+                    item.ExibicaoImg = imageDataURL;
+                }
+                return View(denuncias);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // GET: Denuncia/Details/5
@@ -60,6 +74,16 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DenunciaId,DenunciaTitulo,DenunciaMidia,DenunciaDescricao,TipoDenunciaId,BairroId")] Denuncia denuncia)
         {
+            foreach (var file in Request.Form.Files)
+            {
+
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+                denuncia.DenunciaMidia = ms.ToArray();
+
+                ms.Close();
+                ms.Dispose();
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(denuncia);
@@ -96,6 +120,16 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DenunciaId,DenunciaTitulo,DenunciaMidia,DenunciaDescricao,TipoDenunciaId,BairroId")] Denuncia denuncia)
         {
+            foreach (var file in Request.Form.Files)
+            {
+
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+                denuncia.DenunciaMidia = ms.ToArray();
+
+                ms.Close();
+                ms.Dispose();
+            }
             if (id != denuncia.DenunciaId)
             {
                 return NotFound();

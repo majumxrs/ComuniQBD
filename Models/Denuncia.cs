@@ -11,7 +11,7 @@ namespace ComuniQBD.Models
         public int DenunciaId { get; set; }
 
         [Column("DenunciaTitulo")]
-        [Display(Name = "Tipo da Denúncia")]
+        [Display(Name = "Título da Denúncia")]
         public string DenunciaTitulo { get; set; } = string.Empty;
 
         [Column("DenunciaMidia")]
@@ -31,5 +31,8 @@ namespace ComuniQBD.Models
         [Display(Name = "Bairro")]
         public int BairroId { get; set; }
         public Bairro? Bairro { get; set; }
+
+        [NotMapped]
+        public string ExibicaoImg { get; set; } = string.Empty;
     }
 }

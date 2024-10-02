@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Detalhes</h1>
+<h1>Details</h1>
 
 <div>
     <h4>Usuario</h4>
@@ -59,10 +59,10 @@
             @Html.DisplayFor(model => model.UsuarioCidade)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UssuarioBairro)
+            @Html.DisplayNameFor(model => model.UsuarioBairro)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UssuarioBairro)
+            @Html.DisplayFor(model => model.UsuarioBairro)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.UsuarioEstado)
@@ -76,9 +76,21 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.UsuarioSenha)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UsuarioFoto)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UsuarioFoto)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoPerfil)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TipoPerfil.TipoPerfilId)
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.UsuarioId">Editar</a> |
-    <a asp-action="Index">Voltar</a>
+    <a asp-action="Edit" asp-route-id="@Model?.UsuarioId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>

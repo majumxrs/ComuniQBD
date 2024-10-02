@@ -2,12 +2,13 @@
 
 @{
     ViewData["Title"] = "Index";
+    <link rel="stylesheet" href="~/css/Usuario.css" asp-append-version="true" />
 }
 
-<h1>Usuário</h1>
+<h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Criar Novo</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -37,13 +38,19 @@
                 @Html.DisplayNameFor(model => model.UsuarioCidade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UssuarioBairro)
+                @Html.DisplayNameFor(model => model.UsuarioBairro)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UsuarioEstado)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UsuarioSenha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsuarioFoto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoPerfil)
             </th>
             <th></th>
         </tr>
@@ -76,18 +83,25 @@
                 @Html.DisplayFor(modelItem => item.UsuarioCidade)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UssuarioBairro)
+                @Html.DisplayFor(modelItem => item.UsuarioBairro)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UsuarioEstado)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UsuarioSenha)
+            </td>           
+            <td>
+                <img class="imgUsu" src="@Url.Content(item.ExibicaoImg)" />
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoPerfil.TipoPerfilNome)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.UsuarioId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.UsuarioId">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.UsuarioId">Excluir</a>
+                <a asp-action="Edit" asp-route-id="@item.UsuarioId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UsuarioId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UsuarioId">Delete</a>
             </td>
         </tr>
 }

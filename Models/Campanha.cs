@@ -31,5 +31,8 @@ namespace ComuniQBD.Models
         [Display(Name = "Cidade")]
         public int CidadeId { get; set; }
         public Cidade? Cidade { get; set; }
+
+        [NotMapped]
+        public string ExibicaoImg { get; set; } = string.Empty;
     }
 }

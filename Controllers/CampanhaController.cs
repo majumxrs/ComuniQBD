@@ -21,8 +21,22 @@ namespace ComuniQBD.Controllers
         // GET: Campanha
         public async Task<IActionResult> Index()
         {
-            var contexto = _context.Campanha.Include(c => c.Cidade).Include(c => c.TipoCampanha);
-            return View(await contexto.ToListAsync());
+            var campanhas = _context.Campanha.Include(g=> g.TipoCampanha).Include(g=> g.Cidade);
+            if (campanhas != null)
+            {
+                campanhas.ToListAsync().Wait();
+                foreach (var item in campanhas)
+                {
+                    string imageBase64Data = Convert.ToBase64String(inArray: item.CampanhaMidia);
+                    string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+                    item.ExibicaoImg = imageDataURL;
+                }
+                return View(campanhas);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // GET: Campanha/Details/5
@@ -60,6 +74,16 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CampanhaId,CampanhaTitulo,CampanhaMidia,CampanhaDescricao,TipoCampanhaId,CidadeId")] Campanha campanha)
         {
+            foreach (var file in Request.Form.Files)
+            {
+
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+                campanha.CampanhaMidia = ms.ToArray();
+
+                ms.Close();
+                ms.Dispose();
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(campanha);
@@ -96,6 +120,16 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CampanhaId,CampanhaTitulo,CampanhaMidia,CampanhaDescricao,TipoCampanhaId,CidadeId")] Campanha campanha)
         {
+            foreach (var file in Request.Form.Files)
+            {
+
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+                campanha.CampanhaMidia = ms.ToArray();
+
+                ms.Close();
+                ms.Dispose();
+            }
             if (id != campanha.CampanhaId)
             {
                 return NotFound();
