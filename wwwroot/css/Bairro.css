@@ -1,0 +1,18 @@
+﻿.table {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}
+.tabelinha {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}
+.tabelinha a{
+    color: white;
+    text-decoration: none
+}

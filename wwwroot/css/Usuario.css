@@ -1,5 +1,15 @@
 ﻿.imgUsu{
     width: 100px; 
     height: 100px; 
-    object-fit: contain
+    object-fit: cover;
+    border-radius: 100px
+}
+.tabela {
+    background-color:white ;
+}
+.cedula {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align:center
 }

@@ -58,44 +58,44 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
+            <tr class="tabela">
+                <td class="cedula">
                     @Html.DisplayFor(modelItem => item.UsuarioNome)
                 </td>
-                <td>
+                <td class="cedula">
                     @Html.DisplayFor(modelItem => item.UsuarioSobrenome)
                 </td>
-                <td>
+                <td class="cedula">
                     @Html.DisplayFor(modelItem => item.UsuarioApelido)
                 </td>
-                <td>
+                <td class="cedula">
                     @Html.DisplayFor(modelItem => item.UsuarioEmail)
                 </td>
-                <td>
+                <td class="cedula">
                     @Html.DisplayFor(modelItem => item.UsuarioTelefone)
                 </td>
-                <td>
+                <td class="cedula">
                     @Html.DisplayFor(modelItem => item.UsuarioCPF)
                 </td>
-                <td>
+                <td class="cedula">
                     @Html.DisplayFor(modelItem => item.UsuarioCEP)
                 </td>
-                <td>
+                <td class="cedula">
                     @Html.DisplayFor(modelItem => item.UsuarioCidade)
                 </td>
-                <td>
+                <td class="cedula">
                     @Html.DisplayFor(modelItem => item.UsuarioBairro)
                 </td>
-                <td>
+                <td class="cedula">
                     @Html.DisplayFor(modelItem => item.UsuarioEstado)
                 </td>
-                <td>
+                <td class="cedula">
                     @Html.DisplayFor(modelItem => item.UsuarioSenha)
                 </td>
-                <td>
+                <td class="cedula">
                     <img class="imgUsu" src="@Url.Content(item.ExibicaoImg)" />
                 </td>
-                <td>
+                <td class="cedula">
                     @Html.DisplayFor(modelItem => item.TipoPerfil.TipoPerfilNome)
                 </td>    
                 <td>
