@@ -1,4 +1,16 @@
-﻿.bg {
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+.bg {
     background-color: #20343F
 }
 .imgLogo{
@@ -13,5 +25,14 @@
 }
 .rodape {
     border-top-color: #20343F;
-    background-color: ##d8d8d873
+    background-color: #d8d8d873;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    position: relative;
+    bottom: 0%
+   
+}
+.teste {
+    flex: 1;
 }
