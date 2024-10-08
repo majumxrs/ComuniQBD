@@ -1,25 +1,11 @@
-﻿.imgUsu{
-    width: 100px; 
-    height: 100px; 
-    object-fit: cover;
-    border-radius: 100px
-}
-.tabela {
-   
+﻿.table {
     background-color: #20343F;
     padding: 10px;
     border-radius: 30px;
     text-align: center;
     color: white
 }
-.cedula {
-    background-color: #20343F;
-    padding: 10px;
-    border-radius: 30px;
-    text-align:center
-}
-
-.table {
+.tabelinha {
     background-color: #20343F;
     padding: 10px;
     border-radius: 30px;
@@ -27,4 +13,7 @@
     color: white
 }
 
-
+    .tabelinha a {
+        color: white;
+        text-decoration: none
+    }

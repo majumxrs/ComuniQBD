@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    <link rel="stylesheet" href="~/css/Bairro.css" asp-append-version="true" />
 }
 
 <h1>Detalhes</h1>
@@ -9,7 +10,7 @@
 <div>
     <h4>Bairro</h4>
     <hr />
-    <dl class="row">
+    <dl class="row detaiBairr">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.BairroNome)
         </dt>

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    <link rel="stylesheet" href="~/css/TipoPerfil.css" asp-append-version="true" />
 }
 
 <h1>Tipo do Perfil</h1>
@@ -20,7 +21,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+            <tr class="tabelinha">
             <td>
                 @Html.DisplayFor(modelItem => item.TipoPerfilNome)
             </td>
