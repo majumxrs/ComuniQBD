@@ -27,10 +27,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UsuarioTelefone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioCPF)
-            </th>
+            </th>           
             <th>
                 @Html.DisplayNameFor(model => model.UsuarioCEP)
             </th>
@@ -42,10 +39,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UsuarioEstado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioSenha)
-            </th>
+            </th>         
             <th>
                 @Html.DisplayNameFor(model => model.UsuarioFoto)
             </th>
@@ -75,9 +69,6 @@
                     @Html.DisplayFor(modelItem => item.UsuarioTelefone)
                 </td>
                 <td class="cedula">
-                    @Html.DisplayFor(modelItem => item.UsuarioCPF)
-                </td>
-                <td class="cedula">
                     @Html.DisplayFor(modelItem => item.UsuarioCEP)
                 </td>
                 <td class="cedula">
@@ -90,14 +81,11 @@
                     @Html.DisplayFor(modelItem => item.UsuarioEstado)
                 </td>
                 <td class="cedula">
-                    @Html.DisplayFor(modelItem => item.UsuarioSenha)
-                </td>
-                <td class="cedula">
                     <img class="imgUsu" src="@Url.Content(item.ExibicaoImg)" />
                 </td>
                 <td class="cedula">
                     @Html.DisplayFor(modelItem => item.TipoPerfil.TipoPerfilNome)
-                </td>    
+                </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.UsuarioId">Editar</a> |
                     <a asp-action="Details" asp-route-id="@item.UsuarioId">Detalhes</a> |
@@ -105,5 +93,6 @@
                 </td>
             </tr>
         }
+        <tr class="ultima-linha"></tr>
     </tbody>
 </table>
