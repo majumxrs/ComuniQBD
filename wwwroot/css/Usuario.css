@@ -78,3 +78,30 @@ tbody tr:nth-child(even) {
     color: black;
     text-decoration: none
 }
+
+.editUsu {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white;
+       
+}
+
+.detaiUsu {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white;
+   
+}
+
+.deletUsu {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white;
+    
+}

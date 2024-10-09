@@ -2,95 +2,96 @@
 
 @{
     ViewData["Title"] = "Details";
+    <link rel="stylesheet" href="~/css/Usuario.css" asp-append-version="true" />
 }
 
-<h1>Details</h1>
+<h1>Detalhes</h1>
 
 <div>
     <h4>Usuario</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 detaiUsu">
             @Html.DisplayNameFor(model => model.UsuarioNome)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 detaiUsu">
             @Html.DisplayFor(model => model.UsuarioNome)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 detaiUsu">
             @Html.DisplayNameFor(model => model.UsuarioSobrenome)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 detaiUsu">
             @Html.DisplayFor(model => model.UsuarioSobrenome)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 detaiUsu">
             @Html.DisplayNameFor(model => model.UsuarioApelido)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 detaiUsu">
             @Html.DisplayFor(model => model.UsuarioApelido)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 detaiUsu">
             @Html.DisplayNameFor(model => model.UsuarioEmail)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 detaiUsu">
             @Html.DisplayFor(model => model.UsuarioEmail)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 detaiUsu">
             @Html.DisplayNameFor(model => model.UsuarioTelefone)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 detaiUsu">
             @Html.DisplayFor(model => model.UsuarioTelefone)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 detaiUsu">
             @Html.DisplayNameFor(model => model.UsuarioCPF)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 detaiUsu">
             @Html.DisplayFor(model => model.UsuarioCPF)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 detaiUsu">
             @Html.DisplayNameFor(model => model.UsuarioCEP)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 detaiUsu">
             @Html.DisplayFor(model => model.UsuarioCEP)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 detaiUsu">
             @Html.DisplayNameFor(model => model.UsuarioCidade)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 detaiUsu">
             @Html.DisplayFor(model => model.UsuarioCidade)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 detaiUsu">
             @Html.DisplayNameFor(model => model.UsuarioBairro)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 detaiUsu">
             @Html.DisplayFor(model => model.UsuarioBairro)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 detaiUsu">
             @Html.DisplayNameFor(model => model.UsuarioEstado)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 detaiUsu">
             @Html.DisplayFor(model => model.UsuarioEstado)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 detaiUsu">
             @Html.DisplayNameFor(model => model.UsuarioSenha)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 detaiUsu">
             @Html.DisplayFor(model => model.UsuarioSenha)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 detaiUsu">
             @Html.DisplayNameFor(model => model.UsuarioFoto)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 detaiUsu">
             @Html.DisplayFor(model => model.UsuarioFoto)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 detaiUsu">
             @Html.DisplayNameFor(model => model.TipoPerfil)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 detaiUsu">
             @Html.DisplayFor(model => model.TipoPerfil.TipoPerfilId)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.UsuarioId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.UsuarioId">Editar</a> |
+    <a asp-action="Index">Voltar à lista</a>
 </div>
