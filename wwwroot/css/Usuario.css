@@ -67,3 +67,14 @@ tbody tr:nth-child(even) {
 .table-container::-webkit-scrollbar-thumb:hover {
     background-color: #20343F;
 }
+.btnnew {
+    background-color: lightgrey;
+    border-radius: 10px;
+    text-align: center;
+    padding: 5px;
+    border-color: lightgrey;
+}
+.btnnew a {
+    color: black;
+    text-decoration: none
+}
