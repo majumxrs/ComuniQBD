@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    <link rel="stylesheet" href="~/css/TipoPerfil.css" asp-append-version="true" />
 }
 
 <h1>Detalhes</h1>
@@ -10,7 +11,7 @@
     <h4>Tipo do Perfil</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 detaiTipoPer">
             @Html.DisplayNameFor(model => model.TipoPerfilNome)
         </dt>
         <dd class = "col-sm-10">

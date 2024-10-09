@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Delete";
+    <link rel="stylesheet" href="~/css/TipoDenuncia.css" asp-append-version="true" />
 }
 
 <h1>Excluir</h1>
@@ -13,7 +14,7 @@
     <h4>TipoDenuncia</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 deletTipoDen">
             @Html.DisplayNameFor(model => model.TipoDenunciaNome)
         </dt>
         <dd class = "col-sm-10">

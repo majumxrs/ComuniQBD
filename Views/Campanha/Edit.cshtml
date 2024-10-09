@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    <link rel="stylesheet" href="~/css/Campanha.css" asp-append-version="true" />
 }
 
 <h1>Editar</h1>
@@ -9,7 +10,7 @@
 <h4>Campanha</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 editCam">
         @using (Html.BeginForm("Edit", "Campanha", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

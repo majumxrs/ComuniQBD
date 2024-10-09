@@ -14,7 +14,36 @@
     color: white
 }
 
-    .tabelinha a {
+.table a {
+    color: white;
+    text-decoration: none
+}
+
+.tabelinha a {
         color: white;
         text-decoration: none
     }
+
+.editCidad {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}
+
+.detaiCidad {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}
+
+.deletCidad {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}
