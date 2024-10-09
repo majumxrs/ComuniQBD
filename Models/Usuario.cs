@@ -28,7 +28,7 @@ namespace ComuniQBD.Models
 
         [Column("UsuarioTelefone")]
         [Display(Name = "Telefone")]
-        public int UsuarioTelefone { get; set; }
+        public string UsuarioTelefone { get; set; } = string.Empty;
 
         [Column("UsuarioCPF")]
         [Display(Name = "CPF")]
@@ -36,7 +36,7 @@ namespace ComuniQBD.Models
 
         [Column("UsuarioCEP")]
         [Display(Name = "CEP")]
-        public int UsuarioCEP { get; set; }
+        public string UsuarioCEP { get; set; } = string.Empty;
 
         [Column("UsuarioCidade")]
         [Display(Name = "Cidade")]
