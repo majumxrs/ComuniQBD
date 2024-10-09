@@ -19,27 +19,45 @@ namespace ComuniQBD.Controllers
         }
 
         // GET: Usuario
-        public async Task<IActionResult> Index()
-        {
-            var usuarios = _context.Usuario
-                           .Include(g=> g.TipoPerfil);
-            if (usuarios != null)
+        public async Task<IActionResult> Index(string pesquisa)
+        {      
+            if (pesquisa == null)
             {
-                usuarios.ToListAsync().Wait();
-                foreach (var item in usuarios)
+                var usuarios = _context.Usuario
+                          .Include(g => g.TipoPerfil);
+                if (usuarios != null)
                 {
-                    if(item.UsuarioFoto != null)
+                    usuarios.ToListAsync().Wait();
+                    foreach (var item in usuarios)
                     {
-                        string imageBase64Data = Convert.ToBase64String(inArray: item.UsuarioFoto);
-                        string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
-                        item.ExibicaoImg = imageDataURL;
-                    }                   
+                        if (item.UsuarioFoto != null)
+                        {
+                            string imageBase64Data = Convert.ToBase64String(inArray: item.UsuarioFoto);
+                            string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+                            item.ExibicaoImg = imageDataURL;
+                        }
+                    }                    
                 }
                 return View(usuarios);
             }
             else
             {
-                return View();
+                var usuarios = _context.Usuario
+                         .Include(g => g.TipoPerfil)
+                         .Where(x => x.UsuarioNome
+                         .Contains(pesquisa))
+                         .OrderBy(x => x.UsuarioNome);               
+                usuarios.ToListAsync().Wait();
+                foreach (var item in usuarios)
+                {
+                    if (item.UsuarioFoto != null)
+                    {
+                        string imageBase64Data = Convert.ToBase64String(inArray: item.UsuarioFoto);
+                        string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+                        item.ExibicaoImg = imageDataURL;
+                    }
+                }
+                return View(usuarios);
             }
         }
 
@@ -203,5 +221,25 @@ namespace ComuniQBD.Controllers
         {
           return (_context.Usuario?.Any(e => e.UsuarioId == id)).GetValueOrDefault();
         }
+
+        public async Task<IActionResult> Pesquisa(string pesquisa)
+        {
+            if (pesquisa == null)
+            {
+                return _context.Usuario != null ?
+                          View(await _context.Usuario.ToListAsync()) :
+                          Problem("Entity set 'Contexto.Usuario'  is null.");
+            }
+            else
+            {
+                var usuario =
+                    _context.Usuario
+                    .Where(x => x.UsuarioNome.Contains(pesquisa))
+                    .OrderBy(x => x.UsuarioNome);
+
+                return View(usuario);
+            }
+        }
+
     }
 }

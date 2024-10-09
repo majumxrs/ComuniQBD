@@ -6,6 +6,15 @@
 }
 
 <h1>Usuários</h1>
+ <div>
+    @using (Html.BeginForm("Index", "Usuario", FormMethod.Get))
+    {
+        <p>
+            Digite aqui o nome para pesquisa: @Html.TextBox("Pesquisa") 
+            <input type="submit" value="Pesquisar" />
+        </p>
+    }
+</div>
 
 <p>
     <a asp-action="Create">Criar Novo</a>
