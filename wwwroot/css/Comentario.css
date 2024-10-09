@@ -18,3 +18,27 @@
         color: white;
         text-decoration: none
     }
+
+.editComen {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}
+
+.detaiComen {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}
+
+.deletComen {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}

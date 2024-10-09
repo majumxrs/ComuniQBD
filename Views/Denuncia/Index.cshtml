@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
-    <link rel="stylesheet" href="~/css/Usuario.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Denuncia.css" asp-append-version="true" />
 }
 
 <h1>Denúncia</h1>
@@ -33,7 +33,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr class="tabelinha">
             <td>
                 @Html.DisplayFor(modelItem => item.DenunciaTitulo)
             </td>

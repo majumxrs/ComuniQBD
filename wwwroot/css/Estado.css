@@ -18,3 +18,27 @@
         color: white;
         text-decoration: none
     }
+
+.editEstad {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}
+
+.DetaiEstad {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}
+
+.DeletEstad {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}

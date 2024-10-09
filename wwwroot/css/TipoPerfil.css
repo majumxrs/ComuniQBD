@@ -17,3 +17,27 @@
         color: white;
         text-decoration: none
     }
+
+.editTipoPer {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}
+
+.detaiTipoPer {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}
+
+.deletTipoPer {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}

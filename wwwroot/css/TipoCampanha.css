@@ -18,3 +18,27 @@
         color: white;
         text-decoration: none
     }
+
+.editTipoCam {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}
+
+.detaiTipoCam {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}
+
+.deletTipoCam {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white
+}
