@@ -10,89 +10,74 @@
 <p>
     <a asp-action="Create">Criar Novo</a>
 </p>
-<table class="table table-overflow ">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioNome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioSobrenome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioApelido)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioEmail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioTelefone)
-            </th>           
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioCEP)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioCidade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioBairro)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioEstado)
-            </th>         
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioFoto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoPerfil)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr class="tabela">
-                <td class="cedula">
-                    @Html.DisplayFor(modelItem => item.UsuarioNome)
-                </td>
-                <td class="cedula">
-                    @Html.DisplayFor(modelItem => item.UsuarioSobrenome)
-                </td>
-                <td class="cedula">
-                    @Html.DisplayFor(modelItem => item.UsuarioApelido)
-                </td>
-                <td class="cedula">
-                    @Html.DisplayFor(modelItem => item.UsuarioEmail)
-                </td>
-                <td class="cedula">
-                    @Html.DisplayFor(modelItem => item.UsuarioTelefone)
-                </td>
-                <td class="cedula">
-                    @Html.DisplayFor(modelItem => item.UsuarioCEP)
-                </td>
-                <td class="cedula">
-                    @Html.DisplayFor(modelItem => item.UsuarioCidade)
-                </td>
-                <td class="cedula">
-                    @Html.DisplayFor(modelItem => item.UsuarioBairro)
-                </td>
-                <td class="cedula">
-                    @Html.DisplayFor(modelItem => item.UsuarioEstado)
-                </td>
-                <td class="cedula">
-                    <img class="imgUsu" src="@Url.Content(item.ExibicaoImg)" />
-                </td>
-                <td class="cedula">
-                    @Html.DisplayFor(modelItem => item.TipoPerfil.TipoPerfilNome)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.UsuarioId">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.UsuarioId">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.UsuarioId">Deletar</a>
-                </td>
+
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UsuarioNome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UsuarioSobrenome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UsuarioTelefone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UsuarioCidade)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UsuarioBairro)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UsuarioEstado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UsuarioFoto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoPerfil)
+                </th>
+                <th></th>
             </tr>
-        }
-        <tr class="ultima-linha"></tr>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="tabela">
+                    <td class="cedula">
+                        @Html.DisplayFor(modelItem => item.UsuarioNome)
+                    </td>
+                    <td class="cedula">
+                        @Html.DisplayFor(modelItem => item.UsuarioSobrenome)
+                    </td>
+                    <td class="cedula">
+                        @Html.DisplayFor(modelItem => item.UsuarioTelefone)
+                    </td>
+                    <td class="cedula">
+                        @Html.DisplayFor(modelItem => item.UsuarioCidade)
+                    </td>
+                    <td class="cedula">
+                        @Html.DisplayFor(modelItem => item.UsuarioBairro)
+                    </td>
+                    <td class="cedula">
+                        @Html.DisplayFor(modelItem => item.UsuarioEstado)
+                    </td>
+                    <td class="cedula">
+                        <img class="imgUsu" src="@Url.Content(item.ExibicaoImg)" />
+                    </td>
+                    <td class="cedula">
+                        @Html.DisplayFor(modelItem => item.TipoPerfil.TipoPerfilNome)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.UsuarioId">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.UsuarioId">Detalhes</a> |
+                        <a asp-action="Delete" asp-route-id="@item.UsuarioId">Deletar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
