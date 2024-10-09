@@ -6,11 +6,11 @@
 }
 
 .ultima-linha {
-    background-color: #20343F;
+    background-color: lightgrey;
     padding: 10px;
     border-radius: 30px;
     text-align: center;
-    color: white;
+    color: #20343F;
     width: 100%;
     height: 28px;
     color: #20343F
@@ -22,15 +22,15 @@
     border: 1px solid #ccc;
     overflow-y: auto;
     position: relative;
-    color: white;
-    background-color: #20343F;
+    color: #20343F;
+    background-color: lightgrey;
     border-radius: 20px
 }
 
-.table-container a{
-    color: white;
-    text-decoration: none
-}
+    .table-container a {
+        color: #20343F;
+        text-decoration: none
+    }
 
 table {
     width: 100%;
@@ -38,8 +38,8 @@ table {
 }
 
 thead {
-    background-color: #20343F;
-    color: white;
+    background-color: lightgrey;
+    color: #20343F;
     position: sticky;
     top: 0;
 }
@@ -47,11 +47,11 @@ thead {
 th, td {
     padding: 10px;
     text-align: center;
-    color: white
+    color: #20343F
 }
 
 tbody tr:nth-child(even) {
-    background-color: #20343F;
+    background-color: lightgrey;
 }
 
 /* Scroll personalizado */
@@ -60,21 +60,22 @@ tbody tr:nth-child(even) {
 }
 
 .table-container::-webkit-scrollbar-thumb {
-    background-color: #20343F;
+    background-color: lightgrey;
     border-radius: 6px;
 }
 
-.table-container::-webkit-scrollbar-thumb:hover {
-    background-color: #20343F;
-}
+    .table-container::-webkit-scrollbar-thumb:hover {
+        background-color: lightgrey;
+    }
 .btnnew {
-    background-color: lightgrey;
+    background-color: #20343F;
     border-radius: 10px;
     text-align: center;
     padding: 5px;
     border-color: lightgrey;
 }
 .btnnew a {
-    color: black;
+    color: #fff;
     text-decoration: none
 }
+/*#20343F*/
