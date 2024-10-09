@@ -42,3 +42,60 @@
     text-align: center;
     color: white
 }
+
+.table-container {
+    margin: 20px auto;
+    max-height: 400px;
+    border: 1px solid #ccc;
+    overflow-y: auto;
+    position: relative;
+    color: white;
+    background-color: #20343F;
+    border-radius: 20px
+}
+
+    .table-container a {
+        color: white;
+        text-decoration: none
+    }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #20343F;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    color: white
+}
+
+tbody tr:nth-child(even) {
+    background-color: #20343F;
+}
+
+/* Scroll personalizado */
+.table-container::-webkit-scrollbar {
+    width: 12px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background-color: #20343F;
+    border-radius: 6px;
+}
+
+    .table-container::-webkit-scrollbar-thumb:hover {
+        background-color: #20343F;
+    }
+.imgUsu {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
