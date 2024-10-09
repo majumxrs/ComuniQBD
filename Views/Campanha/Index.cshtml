@@ -10,6 +10,8 @@
 <p>
     <a asp-action="Create">Criar Novo</a>
 </p>
+
+<div class="table-container">
 <table class="table">
     <thead>
         <tr>
@@ -33,7 +35,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-            <tr class="tabelinha">
+            <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CampanhaTitulo)
             </td>
@@ -58,3 +60,4 @@
 }
     </tbody>
 </table>
+</div>

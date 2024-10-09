@@ -10,39 +10,42 @@
 <p>
     <a asp-action="Create">Criar Novo</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.BairroNome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cidade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody class="table"> 
-@foreach (var item in Model) {
-        <tr class="tabelinha">
-            <td>
-                @Html.DisplayFor(modelItem => item.BairroNome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cidade.CidadeNome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado.EstadoNome)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.BairroId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.BairroId">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.BairroId">Excluir</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BairroNome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cidade)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="table">
+            @foreach (var item in Model)
+            {
+                <tr class="tabelinha">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BairroNome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cidade.CidadeNome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Estado.EstadoNome)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.BairroId">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.BairroId">Detalhes</a> |
+                        <a asp-action="Delete" asp-route-id="@item.BairroId">Excluir</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
