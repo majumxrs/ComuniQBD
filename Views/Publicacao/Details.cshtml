@@ -24,10 +24,23 @@
             @Html.DisplayFor(model => model.Bairro.BairroNome)
         </dd>
         <dt class="col-sm-2 detaiPublic">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PublicacaoMidia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PublicacaoMidia)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PublicacaoDescricao)
         </dt>
         <dd class="col-sm-10 detaiPublic">
             @Html.DisplayFor(model => model.PublicacaoDescricao)
+        </dd>
+        <dt class="col-sm-2">
+            Usuário
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.Usuario
         </dd>
     </dl>
 </div>
