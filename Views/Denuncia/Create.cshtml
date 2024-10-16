@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    <link rel="stylesheet" href="~/css/Denuncia.css" asp-append-version="true" />
 }
 
 <h1>Criar</h1>
@@ -20,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="DenunciaMidia" class="control-label"></label>
-                <input type="file" name="DenunciaMidia" id="DenunciaMidia" onchange="fileCheck(this);" />
+                <input type="file" name="DenunciaMidia" id="DenunciaMidia" onchange="fileCheck(this);" class="midia" />
                 <span asp-validation-for="DenunciaMidia" class="text-danger"></span>
             </div>
             <div class="form-group">
