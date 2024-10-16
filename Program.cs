@@ -6,8 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//builder.Services.AddDbContext<Contexto> //Gabi
-//   (options => options.UseSqlServer("Data Source=SP-1491023\\SQLSENAI;Initial Catalog = ComuniQBD;Integrated Security = True;TrustServerCertificate = True"));
+builder.Services.AddDbContext<Contexto> //Gabi
+   (options => options.UseSqlServer("Data Source=SP-1491023\\SQLSENAI;Initial Catalog = ComuniQBD;Integrated Security = True;TrustServerCertificate = True"));
 
 //builder.Services.AddDbContext<Contexto> //Edu
 //   (options => options.UseSqlServer("Data Source=SP-1491021\\SQLSENAI;Initial Catalog = ComuniQBD;Integrated Security = True;TrustServerCertificate = True"));

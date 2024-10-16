@@ -57,6 +57,12 @@ namespace ComuniQBD.Controllers
             {
                 return NotFound();
             }
+            var nome = "";
+            var publicacaoUsuario = await _context.PublicacaoUsuario.FirstOrDefaultAsync( x => x.PublicacaoId == id);
+
+            var usuario = await _context.Usuario.FirstOrDefaultAsync(x => x.UsuarioId == publicacaoUsuario.UsuarioId);
+
+            ViewData["Usuario"] = usuario.UsuarioNome;
 
             return View(publicacao);
         }
@@ -65,6 +71,7 @@ namespace ComuniQBD.Controllers
         public IActionResult Create()
         {
             ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome");
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome");
             return View();
         }
 
@@ -73,7 +80,7 @@ namespace ComuniQBD.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PublicacaoId,PublicacaoTitulo,BairroId,PublicacaoMidia,PublicacaoDescricao")] Publicacao publicacao)
+        public async Task<IActionResult> Create(int usuarioId, [Bind("PublicacaoId,PublicacaoTitulo,BairroId,PublicacaoMidia,PublicacaoDescricao")] Publicacao publicacao)
         {
             foreach (var file in Request.Form.Files)
             {
@@ -94,7 +101,7 @@ namespace ComuniQBD.Controllers
 
                 // Criado o objeto PublicacaoUsuario para inserir na tabela auxiliar o id do usuario e da publicação
                 var usuariopubli = new PublicacaoUsuario();
-                usuariopubli.UsuarioId = 6;
+                usuariopubli.UsuarioId = usuarioId;
                 usuariopubli.PublicacaoId = publicacao.PublicacaoId;
                 _context.Add(usuariopubli);
                 await _context.SaveChangesAsync();
@@ -102,6 +109,7 @@ namespace ComuniQBD.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome", publicacao.BairroId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome", usuarioId );
             return View(publicacao);
         }
 
@@ -118,7 +126,12 @@ namespace ComuniQBD.Controllers
             {
                 return NotFound();
             }
+
+            var publicacaoUsuario = await _context.PublicacaoUsuario.FirstOrDefaultAsync(x => x.PublicacaoId == id);
+
             ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome", publicacao.BairroId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome", publicacaoUsuario?.UsuarioId );
+
             return View(publicacao);
         }
 
@@ -127,7 +140,7 @@ namespace ComuniQBD.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PublicacaoId,PublicacaoTitulo,BairroId,PublicacaoMidia,PublicacaoDescricao")] Publicacao publicacao)
+        public async Task<IActionResult> Edit(int id, int usuarioId, [Bind("PublicacaoId,PublicacaoTitulo,BairroId,PublicacaoMidia,PublicacaoDescricao")] Publicacao publicacao)
         {
             foreach (var file in Request.Form.Files)
             {
@@ -149,6 +162,19 @@ namespace ComuniQBD.Controllers
                 try
                 {
                     _context.Update(publicacao);
+                    await _context.SaveChangesAsync();
+
+                    // Criado o objeto PublicacaoUsuario para inserir na tabela auxiliar o id do usuario e da publicação
+                    var existe = await _context.PublicacaoUsuario.FirstOrDefaultAsync(x => x.PublicacaoId == id);
+
+                    if(existe != null) {
+                        _context.PublicacaoUsuario.Remove(existe);
+                        await _context.SaveChangesAsync();
+                    }
+                    var usuariopubli = new PublicacaoUsuario();
+                    usuariopubli.UsuarioId = usuarioId;
+                    usuariopubli.PublicacaoId = publicacao.PublicacaoId;
+                    _context.Add(usuariopubli);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -183,6 +209,13 @@ namespace ComuniQBD.Controllers
             {
                 return NotFound();
             }
+
+            var nome = "";
+            var publicacaoUsuario = await _context.PublicacaoUsuario.FirstOrDefaultAsync(x => x.PublicacaoId == id);
+
+            var usuario = await _context.Usuario.FirstOrDefaultAsync(x => x.UsuarioId == publicacaoUsuario.UsuarioId);
+
+            ViewData["Usuario"] = usuario.UsuarioNome;
 
             return View(publicacao);
         }
