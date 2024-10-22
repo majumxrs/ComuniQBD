@@ -28,7 +28,7 @@
 .detaiComen {
     background-color: #20343F;
     padding: 10px;
-    border-radius: 30px;
+    
     text-align: center;
     color: white
 }
@@ -36,7 +36,7 @@
 .deletComen {
     background-color: #20343F;
     padding: 10px;
-    border-radius: 30px;
+    
     text-align: center;
     color: white
 }
@@ -106,3 +106,14 @@ tbody tr:nth-child(even) {
         color: #fff;
         text-decoration: none
     }
+
+.createCriar {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white;
+}
+
+.row dt {
+    margin-bottom: 8px

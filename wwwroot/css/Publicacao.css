@@ -28,7 +28,7 @@
 .detaiPublic {
     background-color: #20343F;
     padding: 10px;
-    border-radius: 30px;
+   
     text-align: center;
     color: white
 }
@@ -36,7 +36,7 @@
 .deletPublic {
     background-color: #20343F;
     padding: 10px;
-    border-radius: 30px;
+    
     text-align: center;
     color: white
 }
@@ -109,4 +109,23 @@ tbody tr:nth-child(even) {
     width: 100px;
     height: 100px;
     object-fit: cover;
+}
+.midia{
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    width: 100%;
+    padding: 5px
+}
+
+.createCriar {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white;
+}
+
+.row dt {
+    margin-bottom: 8px
 }

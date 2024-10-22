@@ -93,7 +93,7 @@ tbody tr:nth-child(even) {
 .detaiUsu {
     background-color: #20343F;
     padding: 10px;
-    border-radius: 30px;
+    
     text-align: center;
     color: white;
    
@@ -106,4 +106,49 @@ tbody tr:nth-child(even) {
     text-align: center;
     color: white;
     
+}
+
+
+.campoPesquisa {
+    border-radius: 10px;
+    text-align: center;
+    padding: 5px;
+    border-color: lightgrey;
+    margin-left: 20px
+}
+
+.btnPesquisa {
+    background-color: #20343F;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    padding: 5px;
+    border-color: lightgrey;
+}
+
+.flex-pesquisa{
+    display:flex;
+    flex-direction:row;
+    align-items: center
+}
+.midia {
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    width: 100%;
+    padding: 5px
+}
+
+.createCriar {
+    background-color: #20343F;
+    padding: 10px;
+    border-radius: 30px;
+    text-align: center;
+    color: white;
+}
+.pesquisatoda p {
+    margin: 0
+}
+.row dt {
+    margin-bottom: 8px
 }

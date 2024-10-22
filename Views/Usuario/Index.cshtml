@@ -6,19 +6,20 @@
 }
 
 <h1>Usuários</h1>
- <div>
-    @using (Html.BeginForm("Index", "Usuario", FormMethod.Get))
-    {
-        <p>
-            Digite aqui o nome para pesquisa: @Html.TextBox("Pesquisa") 
-            <input type="submit" value="Pesquisar" />
-        </p>
-    }
+<div class="flex-pesquisa">
+    <button class="btnnew">
+        <a asp-action="Create">Criar Novo</a>
+    </button>
+    <div class="pesquisatoda">
+        @using (Html.BeginForm("Index", "Usuario", FormMethod.Get))
+        {
+            <p>
+                <input class="campoPesquisa" id="Pesquisa" name="Pesquisa" type="text" value="" placeholder="Pesquise por um nome" />
+                <input type="submit" value="Pesquisar" class="btnPesquisa" />
+            </p>
+        }
+    </div>
 </div>
-
-<button class="btnnew">
-    <a asp-action="Create">Criar Novo</a>
-</button>
 
 <div class="table-container">
     <table class="table">

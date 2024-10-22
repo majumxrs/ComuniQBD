@@ -15,26 +15,26 @@
         <dt class = "col-sm-2 deletPublic">
             @Html.DisplayNameFor(model => model.PublicacaoTitulo)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 deletPublic">
             @Html.DisplayFor(model => model.PublicacaoTitulo)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 deletPublic">
             @Html.DisplayNameFor(model => model.Bairro)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 deletPublic">
             @Html.DisplayFor(model => model.Bairro.BairroNome)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PublicacaoMidia)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PublicacaoMidia)
-        </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 deletPublic">
             @Html.DisplayNameFor(model => model.PublicacaoDescricao)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 deletPublic">
             @Html.DisplayFor(model => model.PublicacaoDescricao)
+        </dd>
+        <dt class="col-sm-2 deletPublic">
+            Usuário
+        </dt>
+        <dd class="col-sm-10 deletPublic">
+            @ViewBag.Usuario
         </dd>
     </dl>
     
