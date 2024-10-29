@@ -28,12 +28,12 @@ namespace ComuniQBD.Controllers
 
         // GET: Usuario
         public async Task<IActionResult> Index(string pesquisa)
-        {      
+        {
             if (pesquisa == null)
             {
                 var usuarios = _context.Usuario
                           .Include(g => g.TipoPerfil);
-                return View(await usuarios.ToListAsync() );
+                return View(await usuarios.ToListAsync());
             }
             else
             {
@@ -41,9 +41,9 @@ namespace ComuniQBD.Controllers
                          .Include(g => g.TipoPerfil)
                          .Where(x => x.UsuarioNome
                          .Contains(pesquisa))
-                         .OrderBy(x => x.UsuarioNome);               
-                
-                return View(await usuarios.ToListAsync() );
+                         .OrderBy(x => x.UsuarioNome);
+
+                return View(await usuarios.ToListAsync());
             }
         }
 
@@ -88,17 +88,17 @@ namespace ComuniQBD.Controllers
             if (Request.Form.Files.Count > 0)
             {
                 var s3 = new AWS_Service();
-                await s3.UploadObject( Request, usuario.UsuarioCPF, "usuario" );
+                await s3.UploadObject(Request, usuario.UsuarioCPF, "usuario");
                 usuario.UsuarioFoto = "usuario_" + usuario.UsuarioCPF + ".jpg";
             }
 
-            if (usuario.UsuarioId > 0 )
+            if (usuario.UsuarioId > 0)
             {
                 _context.Update(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            
+
 
             ViewData["TipoPerfilId"] = new SelectList(_context.TipoPerfil, "TipoPerfilId", "TipoPerfilNome", usuario.TipoPerfilId);
             return View(usuario);
@@ -128,13 +128,6 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UsuarioId,UsuarioNome,UsuarioSobrenome,UsuarioApelido,UsuarioEmail,UsuarioTelefone,UsuarioCPF,UsuarioCEP,UsuarioCidade,UsuarioBairro,UsuarioEstado,UsuarioSenha,UsuarioFoto,TipoPerfilId")] Usuario usuario)
         {
-            if (Request.Form.Files.Count > 0)
-            {
-                var s3 = new AWS_Service();
-                await s3.UploadObject(Request, usuario.UsuarioCPF , "usuario" );
-                usuario.UsuarioFoto = "usuario_" + usuario.UsuarioCPF + ".jpg";
-            }
-
             if (id != usuario.UsuarioId)
             {
                 return NotFound();
@@ -144,6 +137,17 @@ namespace ComuniQBD.Controllers
             {
                 try
                 {
+                    if (Request.Form.Files.Count > 0)
+                    {
+                        var s3 = new AWS_Service();
+                        if (usuario.UsuarioFoto != "")
+                        {
+                            await s3.DeleteObject(usuario.UsuarioFoto);
+                        }
+                        await s3.UploadObject(Request, usuario.UsuarioCPF, "usuario");
+                        usuario.UsuarioFoto = "usuario_" + usuario.UsuarioCPF + ".jpg";
+
+                    }
                     _context.Update(usuario);
                     await _context.SaveChangesAsync();
                 }
@@ -159,7 +163,7 @@ namespace ComuniQBD.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            
+
             }
             ViewData["TipoPerfilId"] = new SelectList(_context.TipoPerfil, "TipoPerfilId", "TipoPerfilNome", usuario.TipoPerfilId);
             return View(usuario);
@@ -197,7 +201,7 @@ namespace ComuniQBD.Controllers
             }
             var usuario = await _context.Usuario.FindAsync(id);
 
-            
+
             if (usuario != null)
             {
                 if (usuario.UsuarioFoto != null)
@@ -207,14 +211,14 @@ namespace ComuniQBD.Controllers
                 }
                 _context.Usuario.Remove(usuario);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UsuarioExists(int id)
         {
-          return (_context.Usuario?.Any(e => e.UsuarioId == id)).GetValueOrDefault();
+            return (_context.Usuario?.Any(e => e.UsuarioId == id)).GetValueOrDefault();
         }
 
         public async Task<IActionResult> Pesquisa(string pesquisa)

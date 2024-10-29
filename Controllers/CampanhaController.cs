@@ -116,12 +116,7 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CampanhaId,CampanhaTitulo,CampanhaMidia,CampanhaDescricao,TipoCampanhaId,CidadeId")] Campanha campanha)
         {
-            if (Request.Form.Files.Count > 0)
-            {
-                var s3 = new AWS_Service();
-                await s3.UploadObject(Request, campanha.CampanhaId.ToString(), "campanha");
-                campanha.CampanhaMidia = "campanha_" + campanha.CampanhaId + ".jpg";
-            }
+            
             if (id != campanha.CampanhaId)
             {
                 return NotFound();
@@ -131,6 +126,16 @@ namespace ComuniQBD.Controllers
             {
                 try
                 {
+                    if (Request.Form.Files.Count > 0)
+                    {
+                        var s3 = new AWS_Service();
+                        if(campanha.CampanhaMidia != "")
+                        {
+                            await s3.DeleteObject(campanha.CampanhaMidia);
+                        }
+                        await s3.UploadObject(Request, campanha.CampanhaId.ToString(), "campanha");
+                        campanha.CampanhaMidia = "campanha_" + campanha.CampanhaId + ".jpg";
+                    }
                     _context.Update(campanha);
                     await _context.SaveChangesAsync();
                 }

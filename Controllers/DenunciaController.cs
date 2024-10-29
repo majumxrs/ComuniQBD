@@ -116,13 +116,6 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DenunciaId,DenunciaTitulo,DenunciaMidia,DenunciaDescricao,TipoDenunciaId,BairroId")] Denuncia denuncia)
         {
-            if (Request.Form.Files.Count > 0)
-            {
-                var s3 = new AWS_Service();
-                await s3.UploadObject(Request, denuncia.DenunciaId.ToString(), "denuncia");
-                denuncia.DenunciaMidia = "denuncia_" + denuncia.DenunciaId + ".jpg";
-            }
-
             if (id != denuncia.DenunciaId)
             {
                 return NotFound();
@@ -132,6 +125,17 @@ namespace ComuniQBD.Controllers
             {
                 try
                 {
+
+                    if (Request.Form.Files.Count > 0)
+                    {
+                        var s3 = new AWS_Service();
+                        if (denuncia.DenunciaMidia != "")
+                        {
+                            await s3.DeleteObject(denuncia.DenunciaMidia);
+                        }
+                        await s3.UploadObject(Request, denuncia.DenunciaId.ToString(), "denuncia");
+                        denuncia.DenunciaMidia = "denuncia_" + denuncia.DenunciaId + ".jpg";
+                    }
                     _context.Update(denuncia);
                     await _context.SaveChangesAsync();
                 }
