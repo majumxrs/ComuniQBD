@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4 editDen">
-               @using (Html.BeginForm("Edit", "Denucia", FormMethod.Post, new { enctype = "multipart/form-data" }))
+               @using (Html.BeginForm("Edit", "Denuncia", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="DenunciaId" />
