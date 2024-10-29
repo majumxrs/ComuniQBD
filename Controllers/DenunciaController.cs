@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ComuniQBD.Models;
+using ComuniQBD.Services;
 
 namespace ComuniQBD.Controllers
 {
@@ -21,20 +22,10 @@ namespace ComuniQBD.Controllers
         // GET: Denuncia
         public async Task<IActionResult> Index()
         {
-            var denuncias = _context.Denuncia.Include(g=> g.TipoDenuncia).Include(g=> g.Bairro);
-            if (denuncias != null)
+            var contexto = _context.Denuncia.Include(g=> g.TipoDenuncia).Include(g=> g.Bairro);
+            if (contexto != null)
             {
-                denuncias.ToListAsync().Wait();
-                foreach (var item in denuncias)
-                {
-                    if(item.DenunciaMidia != null)
-                    {
-                        string imageBase64Data = Convert.ToBase64String(inArray: item.DenunciaMidia);
-                        string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
-                        item.ExibicaoImg = imageDataURL;
-                    }                    
-                }
-                return View(denuncias);
+                return View(await contexto.ToListAsync());
             }
             else
             {
@@ -77,19 +68,21 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DenunciaId,DenunciaTitulo,DenunciaMidia,DenunciaDescricao,TipoDenunciaId,BairroId")] Denuncia denuncia)
         {
-            foreach (var file in Request.Form.Files)
-            {
-
-                MemoryStream ms = new MemoryStream();
-                file.CopyTo(ms);
-                denuncia.DenunciaMidia = ms.ToArray();
-
-                ms.Close();
-                ms.Dispose();
-            }
             if (ModelState.IsValid)
             {
                 _context.Add(denuncia);
+                await _context.SaveChangesAsync();
+            }
+            if (Request.Form.Files.Count > 0)
+            {
+                var s3 = new AWS_Service();
+                await s3.UploadObject(Request, denuncia.DenunciaId.ToString(), "denuncia");
+                denuncia.DenunciaMidia = "denuncia_" + denuncia.DenunciaId + ".jpg";
+            }
+
+            if (denuncia.DenunciaId > 0)
+            {
+                _context.Update(denuncia);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -123,16 +116,13 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DenunciaId,DenunciaTitulo,DenunciaMidia,DenunciaDescricao,TipoDenunciaId,BairroId")] Denuncia denuncia)
         {
-            foreach (var file in Request.Form.Files)
+            if (Request.Form.Files.Count > 0)
             {
-
-                MemoryStream ms = new MemoryStream();
-                file.CopyTo(ms);
-                denuncia.DenunciaMidia = ms.ToArray();
-
-                ms.Close();
-                ms.Dispose();
+                var s3 = new AWS_Service();
+                await s3.UploadObject(Request, denuncia.DenunciaId.ToString(), "denuncia");
+                denuncia.DenunciaMidia = "denuncia_" + denuncia.DenunciaId + ".jpg";
             }
+
             if (id != denuncia.DenunciaId)
             {
                 return NotFound();
@@ -195,6 +185,12 @@ namespace ComuniQBD.Controllers
             var denuncia = await _context.Denuncia.FindAsync(id);
             if (denuncia != null)
             {
+
+                if (denuncia.DenunciaMidia != null)
+                {
+                    var s3 = new AWS_Service();
+                    await s3.DeleteObject(denuncia.DenunciaMidia);
+                }
                 _context.Denuncia.Remove(denuncia);
             }
             

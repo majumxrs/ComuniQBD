@@ -21,14 +21,11 @@ namespace ComuniQBD.Models
 
         [Column("PublicacaoMidia")]
         [Display(Name = "Imagem do Ocorrido")]
-        public byte[]? PublicacaoMidia { get; set; } 
+        public string? PublicacaoMidia { get; set; } = string.Empty;
 
         [Column("PublicacaoDescricao")]
         [Display(Name = "Descrição da publicação")]
         public string PublicacaoDescricao { get; set; } = string.Empty;
-
-        [NotMapped]
-        public string ExibicaoImg { get; set; } = string.Empty;
 
     }
 }

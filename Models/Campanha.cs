@@ -16,7 +16,7 @@ namespace ComuniQBD.Models
 
         [Column("CampanhaMidia")]
         [Display(Name = "Mídia da campanha")]
-        public byte[]? CampanhaMidia { get; set; } 
+        public string? CampanhaMidia { get; set; } = string.Empty;
 
         [Column("CampanhaDescricao")]
         [Display(Name = "Descrição da campanha")]
@@ -31,8 +31,5 @@ namespace ComuniQBD.Models
         [Display(Name = "Cidade")]
         public int CidadeId { get; set; }
         public Cidade? Cidade { get; set; }
-
-        [NotMapped]
-        public string ExibicaoImg { get; set; } = string.Empty;
     }
 }

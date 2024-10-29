@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ComuniQBD.Models;
+using ComuniQBD.Services;
 
 namespace ComuniQBD.Controllers
 {
@@ -23,18 +24,8 @@ namespace ComuniQBD.Controllers
         {
             var campanhas = _context.Campanha.Include(g=> g.TipoCampanha).Include(g=> g.Cidade);
             if (campanhas != null)
-            {
-                campanhas.ToListAsync().Wait();
-                foreach (var item in campanhas)
-                {
-                    if (item.CampanhaMidia != null)
-                    {
-                        string imageBase64Data = Convert.ToBase64String(inArray: item.CampanhaMidia);
-                        string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
-                        item.ExibicaoImg = imageDataURL;
-                    }                    
-                }
-                return View(campanhas);
+            {                
+                return View(await campanhas.ToListAsync());
             }
             else
             {
@@ -77,19 +68,21 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CampanhaId,CampanhaTitulo,CampanhaMidia,CampanhaDescricao,TipoCampanhaId,CidadeId")] Campanha campanha)
         {
-            foreach (var file in Request.Form.Files)
-            {
-
-                MemoryStream ms = new MemoryStream();
-                file.CopyTo(ms);
-                campanha.CampanhaMidia = ms.ToArray();
-
-                ms.Close();
-                ms.Dispose();
-            }
             if (ModelState.IsValid)
             {
                 _context.Add(campanha);
+                await _context.SaveChangesAsync();
+            }
+            if (Request.Form.Files.Count > 0)
+            {
+                var s3 = new AWS_Service();
+                await s3.UploadObject(Request, campanha.CampanhaId.ToString(), "campanha");
+                campanha.CampanhaMidia = "campanha_" + campanha.CampanhaId + ".jpg";
+            }
+
+            if (campanha.CampanhaId > 0)
+            {
+                _context.Update(campanha);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -123,15 +116,11 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CampanhaId,CampanhaTitulo,CampanhaMidia,CampanhaDescricao,TipoCampanhaId,CidadeId")] Campanha campanha)
         {
-            foreach (var file in Request.Form.Files)
+            if (Request.Form.Files.Count > 0)
             {
-
-                MemoryStream ms = new MemoryStream();
-                file.CopyTo(ms);
-                campanha.CampanhaMidia = ms.ToArray();
-
-                ms.Close();
-                ms.Dispose();
+                var s3 = new AWS_Service();
+                await s3.UploadObject(Request, campanha.CampanhaId.ToString(), "campanha");
+                campanha.CampanhaMidia = "campanha_" + campanha.CampanhaId + ".jpg";
             }
             if (id != campanha.CampanhaId)
             {
@@ -195,6 +184,12 @@ namespace ComuniQBD.Controllers
             var campanha = await _context.Campanha.FindAsync(id);
             if (campanha != null)
             {
+
+                if (campanha.CampanhaMidia != null)
+                {
+                    var s3 = new AWS_Service();
+                    await s3.DeleteObject(campanha.CampanhaMidia);
+                }
                 _context.Campanha.Remove(campanha);
             }
             

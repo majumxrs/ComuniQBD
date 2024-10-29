@@ -56,13 +56,10 @@ namespace ComuniQBD.Models
 
         [Column("UsuarioFoto")]
         [Display(Name = "Imagem")]
-        public byte[]? UsuarioFoto { get; set; }
+        public string? UsuarioFoto { get; set; } = string.Empty;
 
         [ForeignKey("TipoPerfilId")]
         public int TipoPerfilId { get; set; }
         public TipoPerfil? TipoPerfil { get; set; }
-
-        [NotMapped]
-        public string ExibicaoImg { get; set; } = string.Empty;
     }
 }

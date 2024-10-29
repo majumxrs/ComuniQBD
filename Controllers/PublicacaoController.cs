@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ComuniQBD.Models;
+using ComuniQBD.Services;
 
 namespace ComuniQBD.Controllers
 {
@@ -24,7 +25,7 @@ namespace ComuniQBD.Controllers
             var publicacoes = _context.Publicacao.Include(g=> g.Bairro);
             if (publicacoes != null)
             {
-                publicacoes.ToListAsync().Wait();
+                /*publicacoes.ToListAsync().Wait();
                 foreach (var item in publicacoes)
                 {
                     if(item.PublicacaoMidia != null)
@@ -33,8 +34,8 @@ namespace ComuniQBD.Controllers
                         string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
                         item.ExibicaoImg = imageDataURL;
                     }                    
-                }
-                return View(publicacoes);
+                }*/
+                return View( await publicacoes.ToListAsync() );
             }
             else
             {
@@ -82,21 +83,23 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int usuarioId, [Bind("PublicacaoId,PublicacaoTitulo,BairroId,PublicacaoMidia,PublicacaoDescricao")] Publicacao publicacao)
         {
-            foreach (var file in Request.Form.Files)
-            {
-
-                MemoryStream ms = new MemoryStream();
-                file.CopyTo(ms);
-                publicacao.PublicacaoMidia = ms.ToArray();
-
-                ms.Close();
-                ms.Dispose();
-            }
-
             if (ModelState.IsValid)
             {
-                //Adicionando a publicação no banco            
                 _context.Add(publicacao);
+                await _context.SaveChangesAsync();
+            }
+            if (Request.Form.Files.Count > 0)
+            {
+                var s3 = new AWS_Service();
+                await s3.UploadObject(Request, publicacao.PublicacaoId.ToString(), "publicacao");
+                publicacao.PublicacaoMidia = "publicacao_" + publicacao.PublicacaoId + ".jpg";
+            }
+
+
+            if (publicacao.PublicacaoId > 0)
+            {
+                //Adicionando a publicação no banco            
+                _context.Update(publicacao);
                 await _context.SaveChangesAsync();
 
                 // Criado o objeto PublicacaoUsuario para inserir na tabela auxiliar o id do usuario e da publicação
@@ -142,15 +145,11 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, int usuarioId, [Bind("PublicacaoId,PublicacaoTitulo,BairroId,PublicacaoMidia,PublicacaoDescricao")] Publicacao publicacao)
         {
-            foreach (var file in Request.Form.Files)
+            if (Request.Form.Files.Count > 0)
             {
-
-                MemoryStream ms = new MemoryStream();
-                file.CopyTo(ms);
-                publicacao.PublicacaoMidia = ms.ToArray();
-
-                ms.Close();
-                ms.Dispose();
+                var s3 = new AWS_Service();
+                await s3.UploadObject(Request, publicacao.PublicacaoId.ToString(), "publicacao");
+                publicacao.PublicacaoMidia = "publicacao_" + publicacao.PublicacaoId + ".jpg";
             }
             if (id != publicacao.PublicacaoId)
             {
@@ -232,6 +231,12 @@ namespace ComuniQBD.Controllers
             var publicacao = await _context.Publicacao.FindAsync(id);
             if (publicacao != null)
             {
+
+                if (publicacao.PublicacaoMidia != null)
+                {
+                    var s3 = new AWS_Service();
+                    await s3.DeleteObject(publicacao.PublicacaoMidia);
+                }
                 _context.Publicacao.Remove(publicacao);
             }
             

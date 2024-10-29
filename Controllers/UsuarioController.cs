@@ -6,6 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ComuniQBD.Models;
+using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+using Amazon.S3.Transfer;
+using Amazon.DeviceFarm.Model;
+using Amazon.IdentityManagement.Model;
+using Amazon.Runtime;
+using ComuniQBD.Services;
 
 namespace ComuniQBD.Controllers
 {
@@ -25,20 +33,7 @@ namespace ComuniQBD.Controllers
             {
                 var usuarios = _context.Usuario
                           .Include(g => g.TipoPerfil);
-                if (usuarios != null)
-                {
-                    usuarios.ToListAsync().Wait();
-                    foreach (var item in usuarios)
-                    {
-                        if (item.UsuarioFoto != null)
-                        {
-                            string imageBase64Data = Convert.ToBase64String(inArray: item.UsuarioFoto);
-                            string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
-                            item.ExibicaoImg = imageDataURL;
-                        }
-                    }                    
-                }
-                return View(usuarios);
+                return View(await usuarios.ToListAsync() );
             }
             else
             {
@@ -47,17 +42,8 @@ namespace ComuniQBD.Controllers
                          .Where(x => x.UsuarioNome
                          .Contains(pesquisa))
                          .OrderBy(x => x.UsuarioNome);               
-                usuarios.ToListAsync().Wait();
-                foreach (var item in usuarios)
-                {
-                    if (item.UsuarioFoto != null)
-                    {
-                        string imageBase64Data = Convert.ToBase64String(inArray: item.UsuarioFoto);
-                        string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
-                        item.ExibicaoImg = imageDataURL;
-                    }
-                }
-                return View(usuarios);
+                
+                return View(await usuarios.ToListAsync() );
             }
         }
 
@@ -94,23 +80,26 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UsuarioId,UsuarioNome,UsuarioSobrenome,UsuarioApelido,UsuarioEmail,UsuarioTelefone,UsuarioCPF,UsuarioCEP,UsuarioCidade,UsuarioBairro,UsuarioEstado,UsuarioSenha,UsuarioFoto,TipoPerfilId")] Usuario usuario)
         {
-            foreach (var file in Request.Form.Files)
-            {
-
-                MemoryStream ms = new MemoryStream();
-                file.CopyTo(ms);
-                usuario.UsuarioFoto = ms.ToArray();
-
-                ms.Close();
-                ms.Dispose();
-            }
-
             if (ModelState.IsValid)
             {
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
+            }
+            if (Request.Form.Files.Count > 0)
+            {
+                var s3 = new AWS_Service();
+                await s3.UploadObject( Request, usuario.UsuarioCPF, "usuario" );
+                usuario.UsuarioFoto = "usuario_" + usuario.UsuarioCPF + ".jpg";
+            }
+
+            if (usuario.UsuarioId > 0 )
+            {
+                _context.Update(usuario);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            
+
             ViewData["TipoPerfilId"] = new SelectList(_context.TipoPerfil, "TipoPerfilId", "TipoPerfilNome", usuario.TipoPerfilId);
             return View(usuario);
         }
@@ -139,15 +128,11 @@ namespace ComuniQBD.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UsuarioId,UsuarioNome,UsuarioSobrenome,UsuarioApelido,UsuarioEmail,UsuarioTelefone,UsuarioCPF,UsuarioCEP,UsuarioCidade,UsuarioBairro,UsuarioEstado,UsuarioSenha,UsuarioFoto,TipoPerfilId")] Usuario usuario)
         {
-            foreach (var file in Request.Form.Files)
+            if (Request.Form.Files.Count > 0)
             {
-
-                MemoryStream ms = new MemoryStream();
-                file.CopyTo(ms);
-                usuario.UsuarioFoto = ms.ToArray();
-
-                ms.Close();
-                ms.Dispose();
+                var s3 = new AWS_Service();
+                await s3.UploadObject(Request, usuario.UsuarioCPF , "usuario" );
+                usuario.UsuarioFoto = "usuario_" + usuario.UsuarioCPF + ".jpg";
             }
 
             if (id != usuario.UsuarioId)
@@ -174,6 +159,7 @@ namespace ComuniQBD.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
+            
             }
             ViewData["TipoPerfilId"] = new SelectList(_context.TipoPerfil, "TipoPerfilId", "TipoPerfilNome", usuario.TipoPerfilId);
             return View(usuario);
@@ -190,6 +176,8 @@ namespace ComuniQBD.Controllers
             var usuario = await _context.Usuario
                 .Include(u => u.TipoPerfil)
                 .FirstOrDefaultAsync(m => m.UsuarioId == id);
+
+
             if (usuario == null)
             {
                 return NotFound();
@@ -208,8 +196,15 @@ namespace ComuniQBD.Controllers
                 return Problem("Entity set 'Contexto.Usuario'  is null.");
             }
             var usuario = await _context.Usuario.FindAsync(id);
+
+            
             if (usuario != null)
             {
+                if (usuario.UsuarioFoto != null)
+                {
+                    var s3 = new AWS_Service();
+                    await s3.DeleteObject(usuario.UsuarioFoto);
+                }
                 _context.Usuario.Remove(usuario);
             }
             

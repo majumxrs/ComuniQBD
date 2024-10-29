@@ -11,52 +11,53 @@
     <a asp-action="Create">Criar Nova</a>
 </button>
 <div class="table-container">
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DenunciaTitulo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DenunciaMidia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DenunciaDescricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoDenuncia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bairro)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr class="tabelinha">
-            <td>
-                @Html.DisplayFor(modelItem => item.DenunciaTitulo)
-            </td>
-                <td>
-                    <img class="imgUsu" src="@Url.Content(item.ExibicaoImg)" />
-                </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DenunciaDescricao)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.TipoDenuncia.TipoDenunciaNome)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Bairro.BairroNome)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DenunciaId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.DenunciaId">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.DenunciaId">Excluir</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DenunciaTitulo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DenunciaMidia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DenunciaDescricao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoDenuncia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bairro)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="tabelinha">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DenunciaTitulo)
+                    </td>
+                    <td>
+                        <img class="imgUsu" src="https://comuniq.s3.amazonaws.com/@Url.Content(item.DenunciaMidia)" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DenunciaDescricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoDenuncia.TipoDenunciaNome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bairro.BairroNome)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.DenunciaId">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.DenunciaId">Detalhes</a> |
+                        <a asp-action="Delete" asp-route-id="@item.DenunciaId">Excluir</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
