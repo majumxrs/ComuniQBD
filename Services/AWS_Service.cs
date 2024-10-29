@@ -7,18 +7,24 @@ using Amazon.IdentityManagement.Model;
 using Amazon.Runtime;
 using ComuniQBD.Models;
 using Azure.Core;
+using dotenv.net;
+
 
 namespace ComuniQBD.Services
 {
     public class AWS_Service
     {
-        private readonly string accessKey = "AKIAZNGTHNABZT7OUFKZ";
-        private readonly string secretKey = "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";
         private readonly AmazonS3Client AWS_CLIENT;
         public AWS_Service()
-        {
-            var credentials = new BasicAWSCredentials(accessKey, secretKey);
-            AWS_CLIENT = new AmazonS3Client(credentials, RegionEndpoint.USEast1);
+        {;
+
+            DotEnv.Load();
+            var setup = DotEnv.Read();
+            if(setup["accessKey"] != "" && setup["secretKey"] != "") 
+            {
+                var credentials = new BasicAWSCredentials(setup["accessKey"], setup["secretKey"]);
+                AWS_CLIENT = new AmazonS3Client(credentials, RegionEndpoint.USEast1);
+            }
         }
 
         public async Task<bool> UploadObject(HttpRequest request, string identifier, string key)
