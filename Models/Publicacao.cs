@@ -27,5 +27,10 @@ namespace ComuniQBD.Models
         [Display(Name = "Descrição da publicação")]
         public string PublicacaoDescricao { get; set; } = string.Empty;
 
+        [ForeignKey("UsuarioId")]
+        [Display(Name = "Usuário")]
+        public int UsuarioId { get; set; }
+        public Usuario? Usuario { get; set; }
+
     }
 }

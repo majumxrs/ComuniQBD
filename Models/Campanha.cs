@@ -31,5 +31,10 @@ namespace ComuniQBD.Models
         [Display(Name = "Cidade")]
         public int CidadeId { get; set; }
         public Cidade? Cidade { get; set; }
+
+        [ForeignKey("UsuarioId")]
+        [Display(Name = "Usuário")]
+        public int UsuarioId { get; set; }
+        public Usuario? Usuario { get; set; }
     }
 }

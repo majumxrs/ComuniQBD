@@ -65,7 +65,6 @@ namespace ComuniQBD.Migrations
                         .HasColumnName("CampanhaDescricao");
 
                     b.Property<string>("CampanhaMidia")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("CampanhaMidia");
 
@@ -80,11 +79,16 @@ namespace ComuniQBD.Migrations
                     b.Property<int>("TipoCampanhaId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("CampanhaId");
 
                     b.HasIndex("CidadeId");
 
                     b.HasIndex("TipoCampanhaId");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Campanha");
                 });
@@ -155,7 +159,6 @@ namespace ComuniQBD.Migrations
                         .HasColumnName("DenunciaDescricao");
 
                     b.Property<string>("DenunciaMidia")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("DenunciaMidia");
 
@@ -212,8 +215,8 @@ namespace ComuniQBD.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("PublicacaoDescricao");
 
-                    b.Property<byte[]>("PublicacaoMidia")
-                        .HasColumnType("varbinary(max)")
+                    b.Property<string>("PublicacaoMidia")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("PublicacaoMidia");
 
                     b.Property<string>("PublicacaoTitulo")
@@ -221,35 +224,16 @@ namespace ComuniQBD.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("PublicacaoTitulo");
 
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("PublicacaoId");
 
                     b.HasIndex("BairroId");
 
-                    b.ToTable("Publicacao");
-                });
-
-            modelBuilder.Entity("ComuniQBD.Models.PublicacaoUsuario", b =>
-                {
-                    b.Property<int>("PublicacaoUsuarioId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("PublicacaoUsuarioId");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PublicacaoUsuarioId"));
-
-                    b.Property<int>("PublicacaoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PublicacaoUsuarioId");
-
-                    b.HasIndex("PublicacaoId");
-
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("PublicacaoUsuario");
+                    b.ToTable("Publicacao");
                 });
 
             modelBuilder.Entity("ComuniQBD.Models.TipoCampanha", b =>
@@ -357,7 +341,6 @@ namespace ComuniQBD.Migrations
                         .HasColumnName("UsuarioEstado");
 
                     b.Property<string>("UsuarioFoto")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("UsuarioFoto");
 
@@ -421,9 +404,17 @@ namespace ComuniQBD.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ComuniQBD.Models.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Cidade");
 
                     b.Navigation("TipoCampanha");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("ComuniQBD.Models.Comentario", b =>
@@ -472,24 +463,13 @@ namespace ComuniQBD.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Bairro");
-                });
-
-            modelBuilder.Entity("ComuniQBD.Models.PublicacaoUsuario", b =>
-                {
-                    b.HasOne("ComuniQBD.Models.Publicacao", "Publicacao")
-                        .WithMany()
-                        .HasForeignKey("PublicacaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ComuniQBD.Models.Usuario", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Publicacao");
+                    b.Navigation("Bairro");
 
                     b.Navigation("Usuario");
                 });

@@ -5,7 +5,7 @@
 namespace ComuniQBD.Migrations
 {
     /// <inheritdoc />
-    public partial class Inicial : Migration
+    public partial class CriacaoFInal : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -76,30 +76,6 @@ namespace ComuniQBD.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Usuario",
-                columns: table => new
-                {
-                    UsuarioId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UsuarioNome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsuarioSobrenome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsuarioApelido = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsuarioEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsuarioTelefone = table.Column<int>(type: "int", nullable: false),
-                    UsuarioCPF = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsuarioCEP = table.Column<int>(type: "int", nullable: false),
-                    UsuarioCidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsuarioBairro = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsuarioEstado = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsuarioSenha = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UsuarioFoto = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Usuario", x => x.UsuarioId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Bairro",
                 columns: table => new
                 {
@@ -127,31 +103,33 @@ namespace ComuniQBD.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Campanha",
+                name: "Usuario",
                 columns: table => new
                 {
-                    CampanhaId = table.Column<int>(type: "int", nullable: false)
+                    UsuarioId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CampanhaTitulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CampanhaMidia = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    CampanhaDescricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TipoCampanhaId = table.Column<int>(type: "int", nullable: false),
-                    CidadeId = table.Column<int>(type: "int", nullable: false)
+                    UsuarioNome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioSobrenome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioApelido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioTelefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioCPF = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioCEP = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioCidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioBairro = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioEstado = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioSenha = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioFoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TipoPerfilId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Campanha", x => x.CampanhaId);
+                    table.PrimaryKey("PK_Usuario", x => x.UsuarioId);
                     table.ForeignKey(
-                        name: "FK_Campanha_Cidade_CidadeId",
-                        column: x => x.CidadeId,
-                        principalTable: "Cidade",
-                        principalColumn: "CidadeId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Campanha_TipoCampanha_TipoCampanhaId",
-                        column: x => x.TipoCampanhaId,
-                        principalTable: "TipoCampanha",
-                        principalColumn: "TipoCampanhaId",
+                        name: "FK_Usuario_TipoPerfil_TipoPerfilId",
+                        column: x => x.TipoPerfilId,
+                        principalTable: "TipoPerfil",
+                        principalColumn: "TipoPerfilId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -162,7 +140,7 @@ namespace ComuniQBD.Migrations
                     DenunciaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DenunciaTitulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DenunciaMidia = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    DenunciaMidia = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DenunciaDescricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TipoDenunciaId = table.Column<int>(type: "int", nullable: false),
                     BairroId = table.Column<int>(type: "int", nullable: false)
@@ -185,6 +163,42 @@ namespace ComuniQBD.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Campanha",
+                columns: table => new
+                {
+                    CampanhaId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CampanhaTitulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CampanhaMidia = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CampanhaDescricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TipoCampanhaId = table.Column<int>(type: "int", nullable: false),
+                    CidadeId = table.Column<int>(type: "int", nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Campanha", x => x.CampanhaId);
+                    table.ForeignKey(
+                        name: "FK_Campanha_Cidade_CidadeId",
+                        column: x => x.CidadeId,
+                        principalTable: "Cidade",
+                        principalColumn: "CidadeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Campanha_TipoCampanha_TipoCampanhaId",
+                        column: x => x.TipoCampanhaId,
+                        principalTable: "TipoCampanha",
+                        principalColumn: "TipoCampanhaId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Campanha_Usuario_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "Usuario",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Publicacao",
                 columns: table => new
                 {
@@ -192,8 +206,9 @@ namespace ComuniQBD.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PublicacaoTitulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BairroId = table.Column<int>(type: "int", nullable: false),
-                    PublicacaoMidia = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    PublicacaoDescricao = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PublicacaoMidia = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PublicacaoDescricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -203,6 +218,12 @@ namespace ComuniQBD.Migrations
                         column: x => x.BairroId,
                         principalTable: "Bairro",
                         principalColumn: "BairroId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Publicacao_Usuario_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "Usuario",
+                        principalColumn: "UsuarioId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -223,40 +244,12 @@ namespace ComuniQBD.Migrations
                         name: "FK_Comentario_Publicacao_PublicacaoId",
                         column: x => x.PublicacaoId,
                         principalTable: "Publicacao",
-                        principalColumn: "PublicacaoId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "PublicacaoId");
                     table.ForeignKey(
                         name: "FK_Comentario_Usuario_UsuarioId",
                         column: x => x.UsuarioId,
                         principalTable: "Usuario",
-                        principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PublicacaoUsuario",
-                columns: table => new
-                {
-                    PublicacaoUsuarioId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UsuarioId = table.Column<int>(type: "int", nullable: false),
-                    PublicacaoId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PublicacaoUsuario", x => x.PublicacaoUsuarioId);
-                    table.ForeignKey(
-                        name: "FK_PublicacaoUsuario_Publicacao_PublicacaoId",
-                        column: x => x.PublicacaoId,
-                        principalTable: "Publicacao",
-                        principalColumn: "PublicacaoId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PublicacaoUsuario_Usuario_UsuarioId",
-                        column: x => x.UsuarioId,
-                        principalTable: "Usuario",
-                        principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "UsuarioId");
                 });
 
             migrationBuilder.CreateIndex(
@@ -278,6 +271,11 @@ namespace ComuniQBD.Migrations
                 name: "IX_Campanha_TipoCampanhaId",
                 table: "Campanha",
                 column: "TipoCampanhaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Campanha_UsuarioId",
+                table: "Campanha",
+                column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comentario_PublicacaoId",
@@ -305,14 +303,14 @@ namespace ComuniQBD.Migrations
                 column: "BairroId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PublicacaoUsuario_PublicacaoId",
-                table: "PublicacaoUsuario",
-                column: "PublicacaoId");
+                name: "IX_Publicacao_UsuarioId",
+                table: "Publicacao",
+                column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PublicacaoUsuario_UsuarioId",
-                table: "PublicacaoUsuario",
-                column: "UsuarioId");
+                name: "IX_Usuario_TipoPerfilId",
+                table: "Usuario",
+                column: "TipoPerfilId");
         }
 
         /// <inheritdoc />
@@ -328,31 +326,28 @@ namespace ComuniQBD.Migrations
                 name: "Denuncia");
 
             migrationBuilder.DropTable(
-                name: "PublicacaoUsuario");
-
-            migrationBuilder.DropTable(
-                name: "TipoPerfil");
-
-            migrationBuilder.DropTable(
                 name: "TipoCampanha");
-
-            migrationBuilder.DropTable(
-                name: "TipoDenuncia");
 
             migrationBuilder.DropTable(
                 name: "Publicacao");
 
             migrationBuilder.DropTable(
-                name: "Usuario");
+                name: "TipoDenuncia");
 
             migrationBuilder.DropTable(
                 name: "Bairro");
+
+            migrationBuilder.DropTable(
+                name: "Usuario");
 
             migrationBuilder.DropTable(
                 name: "Cidade");
 
             migrationBuilder.DropTable(
                 name: "Estado");
+
+            migrationBuilder.DropTable(
+                name: "TipoPerfil");
         }
     }
 }
