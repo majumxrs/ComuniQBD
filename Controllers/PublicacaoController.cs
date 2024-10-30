@@ -22,19 +22,9 @@ namespace ComuniQBD.Controllers
         // GET: Publicacao
         public async Task<IActionResult> Index()
         {
-            var publicacoes = _context.Publicacao.Include(g=> g.Bairro);
+            var publicacoes = _context.Publicacao.Include(p => p.Bairro).Include(p => p.Usuario);
             if (publicacoes != null)
             {
-                /*publicacoes.ToListAsync().Wait();
-                foreach (var item in publicacoes)
-                {
-                    if(item.PublicacaoMidia != null)
-                    {
-                        string imageBase64Data = Convert.ToBase64String(inArray: item.PublicacaoMidia);
-                        string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
-                        item.ExibicaoImg = imageDataURL;
-                    }                    
-                }*/
                 return View( await publicacoes.ToListAsync() );
             }
             else
@@ -53,17 +43,15 @@ namespace ComuniQBD.Controllers
 
             var publicacao = await _context.Publicacao
                 .Include(p => p.Bairro)
+                .Include(p => p.Usuario)
                 .FirstOrDefaultAsync(m => m.PublicacaoId == id);
             if (publicacao == null)
             {
                 return NotFound();
             }
-            var nome = "";
-            var publicacaoUsuario = await _context.PublicacaoUsuario.FirstOrDefaultAsync( x => x.PublicacaoId == id);
 
-            var usuario = await _context.Usuario.FirstOrDefaultAsync(x => x.UsuarioId == publicacaoUsuario.UsuarioId);
-
-            ViewData["Usuario"] = usuario.UsuarioNome;
+            ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome");
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome");
 
             return View(publicacao);
         }
@@ -81,7 +69,7 @@ namespace ComuniQBD.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int usuarioId, [Bind("PublicacaoId,PublicacaoTitulo,BairroId,PublicacaoMidia,PublicacaoDescricao")] Publicacao publicacao)
+        public async Task<IActionResult> Create(int usuarioId, [Bind("PublicacaoId,PublicacaoTitulo,BairroId,PublicacaoMidia,PublicacaoDescricao, UsuarioId")] Publicacao publicacao)
         {
             if (ModelState.IsValid)
             {
@@ -101,14 +89,6 @@ namespace ComuniQBD.Controllers
                 //Adicionando a publicação no banco            
                 _context.Update(publicacao);
                 await _context.SaveChangesAsync();
-
-                // Criado o objeto PublicacaoUsuario para inserir na tabela auxiliar o id do usuario e da publicação
-                var usuariopubli = new PublicacaoUsuario();
-                usuariopubli.UsuarioId = usuarioId;
-                usuariopubli.PublicacaoId = publicacao.PublicacaoId;
-                _context.Add(usuariopubli);
-                await _context.SaveChangesAsync();
-
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome", publicacao.BairroId);
@@ -130,10 +110,9 @@ namespace ComuniQBD.Controllers
                 return NotFound();
             }
 
-            var publicacaoUsuario = await _context.PublicacaoUsuario.FirstOrDefaultAsync(x => x.PublicacaoId == id);
-
+           
             ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome", publicacao.BairroId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome", publicacaoUsuario?.UsuarioId );
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome", publicacao.UsuarioId );
 
             return View(publicacao);
         }
@@ -166,19 +145,6 @@ namespace ComuniQBD.Controllers
                     }
                     _context.Update(publicacao);
                     await _context.SaveChangesAsync();
-
-                    // Criado o objeto PublicacaoUsuario para inserir na tabela auxiliar o id do usuario e da publicação
-                    var existe = await _context.PublicacaoUsuario.FirstOrDefaultAsync(x => x.PublicacaoId == id);
-
-                    if(existe != null) {
-                        _context.PublicacaoUsuario.Remove(existe);
-                        await _context.SaveChangesAsync();
-                    }
-                    var usuariopubli = new PublicacaoUsuario();
-                    usuariopubli.UsuarioId = usuarioId;
-                    usuariopubli.PublicacaoId = publicacao.PublicacaoId;
-                    _context.Add(usuariopubli);
-                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -194,6 +160,7 @@ namespace ComuniQBD.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BairroId"] = new SelectList(_context.Bairro, "BairroId", "BairroNome", publicacao.BairroId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome", publicacao.UsuarioId);
             return View(publicacao);
         }
 
@@ -207,19 +174,12 @@ namespace ComuniQBD.Controllers
 
             var publicacao = await _context.Publicacao
                 .Include(p => p.Bairro)
+                .Include(p => p.Usuario)
                 .FirstOrDefaultAsync(m => m.PublicacaoId == id);
             if (publicacao == null)
             {
                 return NotFound();
             }
-
-            var nome = "";
-            var publicacaoUsuario = await _context.PublicacaoUsuario.FirstOrDefaultAsync(x => x.PublicacaoId == id);
-
-            var usuario = await _context.Usuario.FirstOrDefaultAsync(x => x.UsuarioId == publicacaoUsuario.UsuarioId);
-
-            ViewData["Usuario"] = usuario.UsuarioNome;
-
             return View(publicacao);
         }
 
@@ -241,9 +201,9 @@ namespace ComuniQBD.Controllers
                     var s3 = new AWS_Service();
                     await s3.DeleteObject(publicacao.PublicacaoMidia);
                 }
-                _context.Publicacao.Remove(publicacao);
+                
             }
-            
+            _context.Publicacao.Remove(publicacao);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

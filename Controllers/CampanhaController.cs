@@ -22,7 +22,7 @@ namespace ComuniQBD.Controllers
         // GET: Campanha
         public async Task<IActionResult> Index()
         {
-            var campanhas = _context.Campanha.Include(g=> g.TipoCampanha).Include(g=> g.Cidade);
+            var campanhas = _context.Campanha.Include(g => g.TipoCampanha).Include(g => g.Cidade).Include(c => c.Usuario);
             if (campanhas != null)
             {                
                 return View(await campanhas.ToListAsync());
@@ -44,6 +44,7 @@ namespace ComuniQBD.Controllers
             var campanha = await _context.Campanha
                 .Include(c => c.Cidade)
                 .Include(c => c.TipoCampanha)
+                .Include(c => c.Usuario)
                 .FirstOrDefaultAsync(m => m.CampanhaId == id);
             if (campanha == null)
             {
@@ -58,6 +59,7 @@ namespace ComuniQBD.Controllers
         {
             ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeId", "CidadeNome");
             ViewData["TipoCampanhaId"] = new SelectList(_context.TipoCampanha, "TipoCampanhaId", "TipoCampanhaNome");
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome");
             return View();
         }
 
@@ -66,7 +68,7 @@ namespace ComuniQBD.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CampanhaId,CampanhaTitulo,CampanhaMidia,CampanhaDescricao,TipoCampanhaId,CidadeId")] Campanha campanha)
+        public async Task<IActionResult> Create([Bind("CampanhaId,CampanhaTitulo,CampanhaMidia,CampanhaDescricao,TipoCampanhaId,CidadeId, UsuarioId")] Campanha campanha)
         {
             if (ModelState.IsValid)
             {
@@ -88,6 +90,7 @@ namespace ComuniQBD.Controllers
             }
             ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeId", "CidadeNome", campanha.CidadeId);
             ViewData["TipoCampanhaId"] = new SelectList(_context.TipoCampanha, "TipoCampanhaId", "TipoCampanhaNome", campanha.TipoCampanhaId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome", campanha.UsuarioId);
             return View(campanha);
         }
 
@@ -106,6 +109,7 @@ namespace ComuniQBD.Controllers
             }
             ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeId", "CidadeNome", campanha.CidadeId);
             ViewData["TipoCampanhaId"] = new SelectList(_context.TipoCampanha, "TipoCampanhaId", "TipoCampanhaNome", campanha.TipoCampanhaId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome", campanha.UsuarioId);
             return View(campanha);
         }
 
@@ -114,7 +118,7 @@ namespace ComuniQBD.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CampanhaId,CampanhaTitulo,CampanhaMidia,CampanhaDescricao,TipoCampanhaId,CidadeId")] Campanha campanha)
+        public async Task<IActionResult> Edit(int id, [Bind("CampanhaId,CampanhaTitulo,CampanhaMidia,CampanhaDescricao,TipoCampanhaId,CidadeId, UsuarioId")] Campanha campanha)
         {
             
             if (id != campanha.CampanhaId)
@@ -154,6 +158,7 @@ namespace ComuniQBD.Controllers
             }
             ViewData["CidadeId"] = new SelectList(_context.Cidade, "CidadeId", "CidadeNome", campanha.CidadeId);
             ViewData["TipoCampanhaId"] = new SelectList(_context.TipoCampanha, "TipoCampanhaId", "TipoCampanhaNome", campanha.TipoCampanhaId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "UsuarioId", "UsuarioNome", campanha.UsuarioId);
             return View(campanha);
         }
 
@@ -168,6 +173,7 @@ namespace ComuniQBD.Controllers
             var campanha = await _context.Campanha
                 .Include(c => c.Cidade)
                 .Include(c => c.TipoCampanha)
+                .Include(c => c.Usuario)
                 .FirstOrDefaultAsync(m => m.CampanhaId == id);
             if (campanha == null)
             {
